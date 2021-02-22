@@ -8,6 +8,7 @@ target 'Fasfit' do
 
   use_react_native!(:path => config["reactNativePath"])
 
+  pod 'Firebase/Analytics'
   target 'FasfitTests' do
     inherit! :complete
     # Pods for testing
