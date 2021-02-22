@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "768313951140",
+    "firebase_url": "https://fasfit-e8f80-default-rtdb.firebaseio.com",
+    "project_id": "fasfit-e8f80",
+    "storage_bucket": "fasfit-e8f80.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:768313951140:android:36089522054c38bd9d3731",
+        "android_client_info": {
+          "package_name": "com.fasfit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "768313951140-fo2o9enu3sq53emprcsp1be2e718midh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBL_uxftG_U3T1rmesTFk8sfHqAcOvLLyk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "768313951140-fo2o9enu3sq53emprcsp1be2e718midh.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "768313951140-8dbiqbc5s1quio1d13o1544279fjak0a.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.et.fasfit"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
