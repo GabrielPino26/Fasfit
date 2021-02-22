@@ -27,15 +27,10 @@ class ScopeDetail extends Component {
       welcome_background: require('../../../../assets/image/welcome_background.png'),
       back_button: require('../../../../assets/image/back_button.png'),
       next_button: require('../../../../assets/image/next_button.png'),
-      scopeData: [{title: "Clothing Type", subData: ["Shirt", "Trousers", "Skirt"]},
-                  {title: "Gender", subData: ["Man", "Woman"]},
+      scopeData: [{title: "Pronouns", subData: ["He/Him/His", "She/Her/Hers", "They/Them"]},
                   {title: "Season", subData: ["Spring", "Summer", "Autumn", "Winter"]},
-                  {title: "Desired Look", subData: []},
-                  {title: "Men's Wear", subData: []},
-                  {title: "Women's Wear", subData: []},
-                  {title: "Fashion", subData: []},
-                  {title: "Accessories", subData: []},
-                  {title: "Footwear", subData: []},
+                  {title: "Occasion", subData: ["Formal", "Vacation", "Business", "Casual", "Cultural", "Party", "Seasonal", "Outdoor", "Role-play", "Active/sport"]},
+                  {title: "Aesthetic", subData: ["Punk", "Classy", "Contemporary", "Bohemian", "Vintage", "Luxury", "Streetwear", "Casual", "Maternity", "Athletic", "Boho", "Baroque", "Minimalist", "Classic", "Romantic", "Glam", "Edgy", "Preppy"]},
                 ],
       selectedItem: null,
       refresh: false,
@@ -69,6 +64,19 @@ class ScopeDetail extends Component {
     this.props.navigation.goBack();
   }
 
+  handleCheckAll = (scopeItem) => {
+    let scopeArray = this.state.scopeItems
+    if(scopeArray.length > 0) {
+      this.setState({scopeItems: []});
+    }else{
+      for (let scopeSubItem of scopeItem.subData) {
+        scopeArray.push(scopeSubItem)
+      }
+      this.setState({scopeItems: scopeArray});
+    }
+
+  }
+
   handleNext = async () => {
     let userInfo  = await storage.getUserInfo();
     let userId = userInfo['_id']
@@ -98,7 +106,12 @@ class ScopeDetail extends Component {
               <Text style={styles.selected_item_button_title}>{scopeItem.title}</Text>
             </TouchableOpacity>
             {scopeItem.subData.length > 0 ? 
-              <View style={styles.subData_contentView}>
+                <View style={styles.subData_contentView}>
+                {this.state.selectedItem.title != "Pronouns" ?
+                  <TouchableOpacity style={styles.checkAllButton} onPress={() => this.handleCheckAll(scopeItem)}>
+                    <Text style={styles.checkAllButtonTitle}>{`check all that  applies`}</Text>
+                  </TouchableOpacity>
+                : null}
                 <FlatGrid 
                   itemDimension={100}
                   data={scopeItem.subData}

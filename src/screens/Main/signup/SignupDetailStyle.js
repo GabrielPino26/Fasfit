@@ -102,6 +102,24 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
     },
 
+    termsButton: {
+        flex: 1,
+        flexDirection: 'row',
+        width: '100%',
+        marginTop: 28 * utils.widthRatio,
+        backgroundColor: 'white',
+        alignItems: 'center',
+        justifyContent: 'center',
+        alignSelf: 'center',
+    },
+
+    termsButtonTitle: {
+        textAlign: 'center',
+        color: '#434040', 
+        fontSize: 16 * utils.widthRatio, 
+        fontWeight: 'bold',
+    },
+
     loginButton: {
         backgroundColor: 'black',
         flex: 1,

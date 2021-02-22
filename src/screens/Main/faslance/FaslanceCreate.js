@@ -221,14 +221,14 @@ class FaslanceCreate extends Component {
                 style={styles.loginKeyboardAvoiding}>
                 <View>
                     <Label style={styles.loginHeaderTitleLabel}>Create my Faslance account</Label>
-                    <Label style={styles.loginSubTitleLabel}>Username</Label>
-                    <Item floatingLabel style={styles.underlineStyle}>
+                    {/* <Label style={styles.loginSubTitleLabel}>Username</Label> */}
+                    {/* <Item floatingLabel style={styles.underlineStyle}>
                       <Input placeholder='Please enter your username' onChangeText={this.changeUsername} />
                     </Item>                 
                     <Label style={styles.loginSubTitleLabel}>Email</Label>
                     <Item floatingLabel style={styles.underlineStyle}>
                       <Input placeholder='Please enter your email address' onChangeText={this.changeEmail} />
-                    </Item>                 
+                    </Item>                  */}
                     <Label style={styles.loginSubTitleLabel}>Proffesion</Label>
                     <Item floatingLabel style={styles.underlineStyle}>
                       <Input placeholder='Model' onChangeText={this.changeProffesion} disabled={true} />
@@ -244,7 +244,7 @@ class FaslanceCreate extends Component {
                     <Item floatingLabel style={styles.underlineStyle}>
                       <Input placeholder='50$/hr' onChangeText={this.changeLocation} />
                     </Item>                 
-                    <Label style={styles.loginSubTitleLabel}>Summury</Label>
+                    <Label style={styles.loginSubTitleLabel}>Summary</Label>
                     <Item floatingLabel style={styles.underlineStyle}>
                       <Input placeholder='About me' onChangeText={this.changeSummury} />
                     </Item>                 
@@ -252,7 +252,7 @@ class FaslanceCreate extends Component {
                     <Item floatingLabel style={styles.underlineStyle}>
                       <Input placeholder='.com' onChangeText={this.changeLink} />
                     </Item>                 
-                    <Label style={styles.loginSubTitleLabel}>Profile Picture</Label>
+                    <Label style={styles.loginSubTitleLabel}>Portfolio(Max: 10)</Label>
                     <FlatGrid 
                       itemDimension={80}
                       data={this.state.profile_grid_data}

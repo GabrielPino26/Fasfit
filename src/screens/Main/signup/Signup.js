@@ -46,18 +46,18 @@ export default class Signup extends Component {
             <TouchableOpacity style={styles.signupBackButton} onPress={this.handleBack}>
               <Image style={styles.signupBackButtonImage} source={back_button}/>
             </TouchableOpacity>
-            <Label style={styles.signupContentLabel}>The characterization of your account doesn’t limit the use of features provided by Fasfit. It helps Fasfit Technologies in increasing user customization & enjoyment of our app</Label>
+            <Label style={styles.signupContentLabel}>The characterization of your account doesn’t limit the use of features provided by Fasfit. It helps Fasfit Communications in increasing user customization & enjoyment of our app</Label>
             <View style={styles.signupButtonContent}>
               <TouchableOpacity style={styles.personal_button} onPress={this.handlePersonal}>
                   <Text style={styles.personal_button_title}>Personal</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.business_button} onPress={this.handleBusiness}>
-                  <Text style={styles.business_button_title}>Business</Text>
+                  <Text style={styles.business_button_title}>Creative</Text>
               </TouchableOpacity>
             </View>
             <View style={styles.signupCategoryContent}>
-              <Label style={styles.signupPersonalCategory}>Client/customer</Label>
-              <Label style={styles.signupBusinessCategory}>Hairstyle/designer/stylist/makeup artist/model/digital artist/illustrator/graphic designer/brand/writer/photographer</Label>
+              <Label style={styles.signupPersonalCategory}>enthusiast/fashionista</Label>
+              <Label style={styles.signupBusinessCategory}>hairstyle/designer/stylist/makeup artist/model/digital artist/illustrator/graphic designer/brand/writer/photographer</Label>
             </View>
           </View>
         </Container>

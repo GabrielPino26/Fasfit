@@ -62,7 +62,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: 'white',
     alignSelf: 'center',
-    width: 220 * utils.widthRatio,
+    width: 280 * utils.widthRatio,
     height: 49 * utils.widthRatio,
     marginTop: 20 * utils.widthRatio,
     borderWidth: 2,
@@ -85,7 +85,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: 'black',
     alignSelf: 'center',
-    width: 220 * utils.widthRatio,
+    width: 280 * utils.widthRatio,
     height: 49 * utils.widthRatio,
     marginTop: 20 * utils.widthRatio,
     borderRadius:5 * utils.widthRatio
@@ -104,10 +104,24 @@ export const styles = StyleSheet.create({
   subData_contentView: {
     alignSelf: 'center',
     backgroundColor: '#D4E8EC',
-    width: 220 * utils.widthRatio,
+    width: 280 * utils.widthRatio,
     borderRadius:5 * utils.widthRatio,
     marginTop: 20 * utils.widthRatio,
   },
+
+  checkAllButton: {
+    flexDirection: 'row',
+    marginTop: 12 * utils.widthRatio,
+    alignSelf: 'center',
+},
+
+checkAllButtonTitle: {
+    textAlign: 'center',
+    color: '#434040', 
+    fontSize: 12 * utils.widthRatio, 
+    fontWeight: 'bold',
+},
+
   list_view: {
     marginTop: 30 * utils.widthRatio,
   },

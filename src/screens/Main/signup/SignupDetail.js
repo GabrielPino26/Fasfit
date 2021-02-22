@@ -43,9 +43,11 @@ class SignupDetail extends Component {
         //     this.props.navigation.navigate('Main');
         // }
     }
+
+    handleTerms = () => {
+
+    }
     handleSignup = async () => {
-      // console.log("clicked Login Button");
-      // this.props.onSubmit(this.state.email, this.state.password);
       if(this.state.confirm_password  !== this.state.password) {
         Alert.alert("Error", "The password is not same. Please signup again.")
       }
@@ -92,7 +94,6 @@ class SignupDetail extends Component {
 
     changeUsername = (value) => {    
       this.setState({username: value});
-      // this.props.onChangeEmail(value);
     }
 
     changeEmail = (value) => {    
@@ -151,6 +152,9 @@ class SignupDetail extends Component {
                     <TouchableOpacity style={styles.loginButton} onPress={this.handleSignup}>
                       <Text style={styles.loginButtonTitle}>Signup</Text>
                     </TouchableOpacity>
+                    <TouchableOpacity style={styles.termsButton} onPress={this.handleTerms}>
+                        <Text style={styles.termsButtonTitle}>{`Aggregable terms & service`}</Text>
+                      </TouchableOpacity>
                     <Image style={styles.bottomImage} source={bottomImage}></Image>
                 </View>                                                
               </KeyboardAwareScrollView>

@@ -454,6 +454,13 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
+  menu_Flourish: {
+    flex: 1,
+    color: 'white',
+    fontSize: 28 * utils.widthRatio, 
+    fontWeight: 'bold',
+    textAlign: 'center'
+  },
   side_hanger_o2_image: {
     flex: 1,
     height: 42 * utils.widthRatio,
@@ -502,10 +509,12 @@ export const styles = StyleSheet.create({
     height: 20 * utils.widthRatio,
   },
 
+
+
   side_global_fire_text: {
-    color: '#DA7100',
+    color: 'yellow',
     width: '100%',
-    fontSize: 18 * utils.widthRatio, 
+    fontSize: 48 * utils.widthRatio, 
     fontWeight: 'bold',
     textAlign: 'center'
   },
@@ -563,7 +572,7 @@ export const styles = StyleSheet.create({
   homeTitleLabel: {
     color: 'white', 
     marginTop: 36 * utils.heightRatio,
-    fontSize: 18 * utils.widthRatio, 
+    fontSize: 24 * utils.widthRatio, 
     fontWeight: 'bold',
     textAlign: 'center',
     alignSelf: 'center'

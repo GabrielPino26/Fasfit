@@ -85,7 +85,7 @@ class Home extends Component {
       user_data: [],
       selectedGridItem: null,
       post_data: [],
-      nav_title: 'Wardrobe',
+      nav_title: 'FasNet',
       post_user_data: [],
     }
   }
@@ -248,17 +248,17 @@ class Home extends Component {
 
   handleBottomHanger = () => {
     this.BottomAllDisabled();
-    this.setState({bottom_hanger_button_selected: true, nav_title: 'Wardrobe'});
+    this.setState({bottom_hanger_button_selected: true, nav_title: 'FasNet'});
   }
 
   handleBottomGlobal = () => {
     this.BottomAllDisabled();
-    this.setState({bottom_global_button_selected: true, nav_title: 'World'});
+    this.setState({bottom_global_button_selected: true, nav_title: 'The Hub'});
   }
 
   handleBottomPath = () => {
     this.BottomAllDisabled();
-    this.setState({bottom_path_button_selected: true, nav_title: 'Faslance'});
+    this.setState({bottom_path_button_selected: true, nav_title: 'FasTips'});
   }
 
   handleBottomCompass = () => {
@@ -371,7 +371,7 @@ class Home extends Component {
           <View style={styles.item_bottom_buttons_view}>
             <TouchableOpacity style={styles.item_bottom_like_button} onPress={async() => {await this.handleLike(postItem['_id'])}}>
               <Image style={styles.item_bottom_like_button_image} source={comment_image}/>
-              <Text style={styles.item_bottom_like_button_label}>Like {postItem['total_likes']}</Text>
+              <Text style={styles.item_bottom_like_button_label}>{postItem['total_likes']}</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.item_bottom_comment_button} onPress={async() => {await this.handleComment(postItem['_id'])}}>
               <Image style={styles.item_bottom_comment_button_image} source={comment_image}/>
@@ -391,10 +391,16 @@ class Home extends Component {
       return (
         <View style={styles.side_menu_hanger_bg}>
           <View style={styles.side_menu_hanger_img_view}>
-            <Image style={styles.side_hanger_o1_image} source={side_hanger_o1_icon}/>
+            <Label style={styles.menu_Flourish}>F</Label>
+            <Label style={styles.menu_Flourish}>A</Label>
+            <Label style={styles.menu_Flourish}>S</Label>
+            <Label style={styles.menu_Flourish}>N</Label>
+            <Label style={styles.menu_Flourish}>E</Label>
+            <Label style={styles.menu_Flourish}>T</Label>
+            {/* <Image style={styles.side_hanger_o1_image} source={side_hanger_o1_icon}/>
             <Image style={styles.side_hanger_o2_image} source={side_hanger_o2_icon}/>
             <Image style={styles.side_hanger_t_image} source={side_hanger_t_icon}/>
-            <Image style={styles.side_hanger_d_image} source={side_hanger_d_icon}/>
+            <Image style={styles.side_hanger_d_image} source={side_hanger_d_icon}/> */}
           </View>
         </View>
       )
@@ -408,7 +414,8 @@ class Home extends Component {
           <View style={styles.side_menu_global_img_view}>
             <Image style={styles.side_global_fire_image} source={side_global_fire_icon}/>
             <Label style={styles.side_global_fire_divided}></Label>
-            {hot_sport_string.split('').map((char, i) => <Text key={i} style={styles.side_global_fire_text}>{char}</Text>)}
+            <Text style={styles.side_global_fire_text}>?</Text>
+            {/* {hot_sport_string.split('').map((char, i) => <Text key={i} style={styles.side_global_fire_text}>{char}</Text>)} */}
           </View>
         </View>
       )
