@@ -121,7 +121,8 @@ class Profile extends Component {
               <Image style={styles.profileBackButtonImage} source={back_button}/>
             </TouchableOpacity>
             <TouchableOpacity style={styles.dmButton} onPress={this.handleDM}>
-              <Image style={styles.dmButtonImage} source={dm_button}/>
+              {/* <Image style={styles.dmButtonImage} source={dm_button}/> */}
+              <Label style={styles.dmButtonLabel}>Edit</Label>
             </TouchableOpacity>
             <View style={styles.profileContentView}>
               <Image style={styles.profilePhotoImage} />
@@ -131,11 +132,11 @@ class Profile extends Component {
             <View style={styles.profileFollowView}>
               <View style={styles.profileFollowerView}>
                 <Label style={styles.profileFollowerLabel}>Followers</Label>
-                <Label style={styles.profileFollowerNumLabel}></Label>
+                <Label style={styles.profileFollowerNumLabel}>0</Label>
               </View>
               <View style={styles.profileFollowingView}>
                 <Label style={styles.profileFollowingLabel}>Following</Label>
-                <Label style={styles.profileFollowingNumLabel}></Label>
+                <Label style={styles.profileFollowingNumLabel}>0</Label>
               </View>
             </View>
             <TouchableOpacity style={styles.profileFollowButton} onPress={this.handleFollow}>

@@ -253,12 +253,12 @@ class Home extends Component {
 
   handleBottomGlobal = () => {
     this.BottomAllDisabled();
-    this.setState({bottom_global_button_selected: true, nav_title: 'The Hub'});
+    this.setState({bottom_global_button_selected: true, nav_title: 'Fas-Q'});
   }
 
   handleBottomPath = () => {
     this.BottomAllDisabled();
-    this.setState({bottom_path_button_selected: true, nav_title: 'FasTips'});
+    this.setState({bottom_path_button_selected: true, nav_title: 'Fasfit Friday'});
   }
 
   handleBottomCompass = () => {

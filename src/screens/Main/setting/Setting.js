@@ -31,6 +31,10 @@ export default class Setting extends Component {
     this.props.navigation.goBack();
   }
 
+  handleLogout = () => {
+    this.props.navigation.navigate('Login')
+  }
+
   handleSelection = (item) => {
     var navigation_page = ''
     switch (item.settingtitle) {
@@ -88,6 +92,9 @@ export default class Setting extends Component {
                 extraData={[]}
               />
             </View>
+            <TouchableOpacity style={styles.logout_button} onPress={this.handleLogout}>
+              <Text style={styles.logout_button_label}>Log Out</Text>
+            </TouchableOpacity>
           </View>
         </Container>
       </StyleProvider>

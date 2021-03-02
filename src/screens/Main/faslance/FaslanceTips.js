@@ -121,7 +121,7 @@ class FaslanceTips extends Component {
               <TouchableOpacity style={styles.notificationBackButton} onPress={this.handleBack}>
                 <Image style={styles.notificationBackButtonImage} source={back_button_icon}/>
               </TouchableOpacity>
-              <Label style={styles.navTitleLabel}>Tips</Label>
+              <Label style={styles.navTitleLabel}>FasTips</Label>
               <TouchableOpacity style={styles.notificationSearchButton} onPress={this.handleAddTip}>
                 <Image style={styles.notificationSearchButtonImage} source={search_button_icon}/>
               </TouchableOpacity>

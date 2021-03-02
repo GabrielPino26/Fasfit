@@ -17,10 +17,12 @@ export default class Notifications extends Component {
       notification_data: [
         {notificationid:'001', notificationtitle:'Likes/Comments', notificationselected: true},
         {notificationid:'002', notificationtitle:'Direct Messages', notificationselected: true},
-        {notificationid:'003', notificationtitle:'Private Messages', notificationselected: false},
+        {notificationid:'003', notificationtitle:'Project Messages', notificationselected: false},
         {notificationid:'004', notificationtitle:'Read Reciepts', notificationselected: false},
         {notificationid:'005', notificationtitle:'New Followers', notificationselected: false},
-        {notificationid:'006', notificationtitle:'Sells', notificationselected: false},
+        {notificationid:'006', notificationtitle:'Schedule Notices', notificationselected: false},
+        {notificationid:'007', notificationtitle:'Billing From Notices', notificationselected: false},
+        {notificationid:'008', notificationtitle:'Schedule Notifications', notificationselected: false},
       ],
     }
   }

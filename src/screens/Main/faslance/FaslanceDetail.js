@@ -149,7 +149,7 @@ export default class FaslanceDetail extends Component {
               </View>
               <View style={styles.divided_line}></View>
               <View style={styles.work_view}>
-                <Label style={styles.workTitleLabel}>{this.state.userItem.user_type == 'hire' ? 'Rating/Reviews' : 'Freelancer POV'}</Label>
+                <Label style={styles.workTitleLabel}>{this.state.userItem.user_type == 'hire' ? 'Rating/Reviews' : 'Client Leads'}</Label>
                 {this.state.userItem.user_type == 'hire' ?
                   <View style={styles.feedback_view}>
                     <Label style={styles.item_feedback_label}>{this.state.userItem.user_feedback}</Label>
@@ -187,9 +187,9 @@ export default class FaslanceDetail extends Component {
                 }
               </View>
             </KeyboardAwareScrollView>
-            <TouchableOpacity style={styles.hire_button} onPress={this.handleHire}>
+            {/* <TouchableOpacity style={styles.hire_button} onPress={this.handleHire}>
               <Text style={styles.hire_button_label}>Hire</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
         </Container>
       </StyleProvider>

@@ -61,8 +61,8 @@ export const styles = StyleSheet.create({
     marginTop: 21 * utils.widthRatio,
     right: 10 * utils.widthRatio,
     ...ifIphoneX({
-	paddingTop: 20
-	})
+      paddingTop: 20
+    })
   },
 
   dmButtonImage: {
@@ -71,6 +71,17 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+
+  dmButtonLabel: {
+    width: 34 * utils.widthRatio,
+    height: 34 * utils.widthRatio,
+    marginTop: 11 * utils.widthRatio,
+    marginRight: 5 * utils.widthRatio,
+    fontSize: 16 * utils.widthRatio,
+    color: 'white',
+    textAlign: 'center',
+  },
+
 
   profileContentView: {
     position: 'absolute',

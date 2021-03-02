@@ -101,4 +101,25 @@ export const styles = StyleSheet.create({
     backgroundColor: '#AAB2B7',
     alignSelf: 'center'
   },
+
+  logout_button: {
+    position: 'absolute',
+    justifyContent: 'center',
+    alignSelf: 'center',
+    width: 0.9 * utils.deviceWidth,
+    height: 49 * utils.widthRatio,
+    alignItems: 'center',
+    backgroundColor: 'black',
+    borderRadius: 5 * utils.widthRatio,
+    bottom: 40 * utils.widthRatio
+  },
+
+  logout_button_label: {
+    color: 'white',
+    fontSize: 16 * utils.widthRatio, 
+    fontWeight: 'bold',
+    textAlign: 'center',
+    textAlignVertical: 'center',
+  },
+
 });

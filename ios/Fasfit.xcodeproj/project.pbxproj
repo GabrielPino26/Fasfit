@@ -730,7 +730,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Fasfit/Fasfit.entitlements;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = 63L4HQBGAR;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Fasfit/Info.plist;
@@ -758,7 +758,7 @@
 				CODE_SIGN_ENTITLEMENTS = Fasfit/Fasfit.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = 63L4HQBGAR;
 				INFOPLIST_FILE = Fasfit/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
