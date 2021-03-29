@@ -141,9 +141,9 @@ class FaslanceCreate extends Component {
               alert(response.customButton);
           } else {
               let profile_grid_data = this.state.profile_grid_data
-		var gallery_item = new GalleryImage(profile_grid_data.length + 1, response.base64)
-		profile_grid_data.push(gallery_item)
-		this.setState({profile_grid_data: profile_grid_data})
+              var gallery_item = new GalleryImage(profile_grid_data.length + 1, response.base64)
+              profile_grid_data.push(gallery_item)
+              this.setState({profile_grid_data: profile_grid_data})
           }
       });
     }
