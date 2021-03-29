@@ -15,6 +15,7 @@ export default class Welcome extends Component {
     super(props);
     this.state = {
       welcome_background: require('../../../../assets/image/welcome_background.png'),
+      fasfit_title_img: require('../../../../assets/image/fasfit_title.png'),
     }
   }
 
@@ -40,7 +41,7 @@ export default class Welcome extends Component {
       <StyleProvider style={getTheme(theme)}>
         <Container>
           <View style={styles.up_content}>
-            <Label style={styles.welcomeTitleLabel}>Fasfit</Label>
+            <Image style={styles.fasfittitleImage} source={this.state.fasfit_title_img} />
             <Label style={styles.welcomeContentLabel}>"One is never over-dressed or under-dressed with a Little Black Dress."</Label>
             <Label style={styles.welcomeSubTitleLabel}>Karl Lagerfeld</Label>
           </View>

@@ -27,8 +27,8 @@ export const styles = StyleSheet.create({
     marginTop: 0.06 * utils.deviceHeight,
     marginLeft: 20,
     marginRight: 20,
-    fontSize: 16 * utils.widthRatio, 
-    fontWeight: '200',
+    fontSize: 20 * utils.widthRatio, 
+    fontWeight: '400',
     textAlign: 'center',
     alignSelf: 'center'
   },
@@ -36,7 +36,7 @@ export const styles = StyleSheet.create({
   welcomeSubTitleLabel: {
     color: 'black', 
     marginTop: 0.03 * utils.deviceHeight,
-    fontSize: 16 * utils.widthRatio, 
+    fontSize: 20 * utils.widthRatio, 
     fontWeight: 'bold',
     alignSelf: 'center'
   },
@@ -106,4 +106,14 @@ export const styles = StyleSheet.create({
     fontSize: 16 * utils.widthRatio,
     fontWeight: '300'
   },
+
+  fasfittitleImage: {
+    marginTop: 0.08 * utils.deviceHeight,
+    height: 56 * utils.widthRatio,
+    resizeMode: 'contain',
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'center'
+  },
+
 });
