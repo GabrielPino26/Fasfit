@@ -140,6 +140,7 @@ export function getUserProfile(params) {
     dispatch(fetchingData())
     return fetchDataService('/getUserProfile', params)
     .then((response) => {
+      console.log("response_user_profile : ", response)
       if(response.data) {
         dispatch(getUserProfileSuccess(response))
         return response.data

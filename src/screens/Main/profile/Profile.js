@@ -11,19 +11,24 @@ import { FlatGrid } from 'react-native-super-grid';
 import { storage } from '../../../helper/storage';
 import { connect } from 'react-redux';
 import {
-  sendFollowInvitation
+  sendFollowInvitation,
+  getWardrobeUserList
 } from '../../../actions/wardrobe'
 
 const mapStateToProps = state => ({ });
 
 const mapDispatchToProps = dispatch => ({
-  sendFollowInvitation: params => dispatch(sendFollowInvitation(params))
+  sendFollowInvitation: params => dispatch(sendFollowInvitation(params)),
+  getWardrobeUserList: params => dispatch(getWardrobeUserList(params)),
 });
 
 const welcome_background  = require('../../../../assets/image/test2.png');
 const back_button = require('../../../../assets/image/white_back_icon.png'); 
 const profile_photo = require('../../../../assets/image/profile_avatar.png'); 
-const dm_button = require('../../../../assets/image/dm_icon.png');
+const profile_edit_button = require('../../../../assets/image/profile_edit_icon.png');
+const profile_pin_button = require('../../../../assets/image/profile_pin_icon.png');
+const profile_checkmark_button = require('../../../../assets/image/profile_checkmark_icon.png');
+
 LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
 class Profile extends Component {
 
@@ -44,13 +49,40 @@ class Profile extends Component {
 	
     const profileID = navigation.getParam('profileID', ''); 
     this.setState({profileID: profileID, username: userInfo['username']}); 
+
+    await this.getUserList()
+
+  }
+
+  async getUserList() {
+    let userInfo  = await storage.getUserInfo();
+    console.log("user_info : ", userInfo)
+    let userId = userInfo['_id']
+    let params = {
+      user_id: userId,
+    }
+    console.log("params: ", params);
+    const { getWardrobeUserList } = this.props
+    getWardrobeUserList(params).then(async response => {
+      if(response) {
+        let grid_data = JSON.parse(JSON.stringify(response['data']))
+        this.setState({grid_data})
+      }else{
+        Alert.alert("Error", "Get User is failed.")
+      }
+    }).catch(err => {
+      Alert.alert("Error", err)
+    })
   }
 
   handleBack = () => {
     this.props.navigation.goBack();
   }
 
-  handleDM = () => {
+  handleEdit = () => {
+  }
+
+  handlePin = () => {
   }
 
   handleFollow = async () => {
@@ -75,9 +107,6 @@ class Profile extends Component {
     })
   }
 
-  handleCollab = () => {
-  }
-
   handleGridItem = (gridItem) => {
     this.setState({selectedGridItem: gridItem});
   }
@@ -88,13 +117,13 @@ class Profile extends Component {
   _renderGridItem = (gridItem) => {
     return (
       <View>
-      {this.state.selectedGridItem && this.state.selectedGridItem.title == gridItem.title ?
+      {this.state.selectedGridItem && this.state.selectedGridItem['username'] == gridItem['username'] ?
         <TouchableOpacity style={styles.selected_grid_item_button} onPress={() => this.handleGridItem(gridItem)}>
-          <Image style={styles.grid_item_image} source={gridItem.img}/>
+          <Image style={styles.grid_item_image} source={gridItem['picture'] == null ? profile_photo : {uri: gridItem['picture']}}/>
         </TouchableOpacity>
         :
         <TouchableOpacity style={styles.grid_item_button} onPress={() => this.handleGridItem(gridItem)}>
-          <Image style={styles.grid_item_image} source={gridItem.img}/>
+          <Image style={styles.grid_item_image} source={gridItem['picture'] == null ? profile_photo : {uri: gridItem['picture']}}/>
         </TouchableOpacity>
       }
       </View>
@@ -117,16 +146,21 @@ class Profile extends Component {
         <Container>
           <View style={styles.up_content}>
             <Image style={styles.backgroundImage} source={welcome_background} />
-            <TouchableOpacity style={styles.profileBackButton} onPress={this.handleBack}>
+            <TouchableOpacity style={styles.profileBackButton} onPress={() => this.handleBack()}>
               <Image style={styles.profileBackButtonImage} source={back_button}/>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.dmButton} onPress={this.handleDM}>
-              {/* <Image style={styles.dmButtonImage} source={dm_button}/> */}
-              <Label style={styles.dmButtonLabel}>Edit</Label>
+            <TouchableOpacity style={styles.editButton} onPress={() => this.handleEdit()}>
+              <Image style={styles.editButtonImage} source={profile_edit_button}/>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.pinButton} onPress={() => this.handlePin()}>
+              <Image style={styles.editButtonImage} source={profile_pin_button}/>
             </TouchableOpacity>
             <View style={styles.profileContentView}>
-              <Image style={styles.profilePhotoImage} />
-              <Label style={styles.profileNameLabel}>{this.state.username}</Label>
+              <Image style={styles.profilePhotoImage} source={profile_photo} />
+              <TouchableOpacity style={styles.profileNameView} onPress={() => {}}>
+                <Label style={styles.profileNameLabel}>{this.state.username}</Label>
+                <Image style={styles.checkmarkButtonImage} source={profile_checkmark_button}/>
+              </TouchableOpacity>
               <Label style={styles.profileAddressLabel}></Label>
             </View>
             <View style={styles.profileFollowView}>
@@ -139,11 +173,8 @@ class Profile extends Component {
                 <Label style={styles.profileFollowingNumLabel}>0</Label>
               </View>
             </View>
-            <TouchableOpacity style={styles.profileFollowButton} onPress={this.handleFollow}>
+            <TouchableOpacity style={styles.profileFollowButton} onPress={() => this.handleFollow()}>
               <Label style={styles.profileFollowButtonLabel}>Follow</Label>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.profileCollabButton} onPress={this.handleCollab}>
-              <Label style={styles.profileCollabButtonLabel}>Collab</Label>
             </TouchableOpacity>
           </View>
           <ScrollView 

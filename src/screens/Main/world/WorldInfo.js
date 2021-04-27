@@ -55,7 +55,7 @@ class WorldInfo extends Component {
     const { getWorldList } = this.props
     getWorldList(params).then(async response => {
       if(response) {
-        // console.log("response_user: ", JSON.parse(JSON.stringify(response['data'])))
+        console.log("response_user: ", JSON.parse(JSON.stringify(response['data'])))
         let worldNames = JSON.parse(JSON.stringify(response['data']))
         this.setState({world_post: []})
         for (let worldName of worldNames) {
@@ -163,11 +163,11 @@ class WorldInfo extends Component {
             <View style={styles.tabView}>
               {this.state.world_names.map((worldName, index) => {
                 {this.state.selectedWorldTab == nTabIndex ?
-                  <TouchableOpacity style={styles.selected_tab_button} onPress={this.handleTabWorld(index)}>
+                  <TouchableOpacity style={styles.selected_tab_button} onPress={() => this.handleTabWorld(index)}>
                     <Label style={styles.selected_tab_worldwide_label}>{worldName}</Label>
                   </TouchableOpacity>
                   :
-                  <TouchableOpacity style={styles.normal_tab_button} onPress={this.handleTabWorld(index)}>
+                  <TouchableOpacity style={styles.normal_tab_button} onPress={() => this.handleTabWorld(index)}>
                     <Label style={styles.normal_tab_label}>{worldName}</Label>
                   </TouchableOpacity>
                 }

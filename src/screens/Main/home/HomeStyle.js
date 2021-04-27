@@ -58,6 +58,7 @@ export const styles = StyleSheet.create({
   },
 
   home_list_view: {
+    marginBottom: 42 * utils.widthRatio,
   },
 
   list_item_view: {
@@ -66,10 +67,44 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 21 * utils.widthRatio,
     width: 0.74 * utils.deviceWidth,
-    height: 1.07 * utils.deviceWidth,
+    height: 1.15 * utils.deviceWidth,
     backgroundColor: '#ECECEC',
     borderRadius: 8 * utils.widthRatio,
   },
+
+  item_top_view: {
+    width: '100%',
+    height: 0.08 * utils.deviceWidth,
+    flexDirection: 'row',
+  },
+
+  item_top_detail_button: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 16 * utils.widthRatio,
+    left: 20 * utils.widthRatio,
+  },
+
+  item_top_detail_button_image: {
+    width: 16 * utils.widthRatio,
+    resizeMode: 'contain',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  item_top_share_button: {
+    marginTop: 16 * utils.widthRatio,
+    marginLeft: 'auto',
+    right: 20 * utils.widthRatio,
+  },
+
+  item_top_share_button_image: {
+    width: 13 * utils.widthRatio,
+    resizeMode: 'contain',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
 
   item_header_view: {
     width: '100%',
@@ -89,12 +124,14 @@ export const styles = StyleSheet.create({
     borderRadius: (0.19 * utils.deviceWidth - 32 * utils.widthRatio) / 2,
   },
 
+
   item_header_profile_button_image: {
     height: 0.19 * utils.deviceWidth - 34 * utils.widthRatio,
     width: 0.19 * utils.deviceWidth - 34 * utils.widthRatio,
-    resizeMode: 'contain',
+    resizeMode: 'cover',
     alignItems: 'center',
     justifyContent: 'center',
+    overflow: 'hidden',
     borderRadius: (0.19 * utils.deviceWidth - 34 * utils.widthRatio) / 2,
   },
   item_header_name_view: {
@@ -201,8 +238,8 @@ export const styles = StyleSheet.create({
   },
 
   item_content_image: {
-    marginTop: 40 * utils.widthRatio,
     width: 0.74 * utils.deviceWidth - 40 * utils.widthRatio,
+    height: 0.74 * utils.deviceWidth - 80 * utils.widthRatio,
     resizeMode: 'contain',
     alignItems: 'center',
     justifyContent: 'center',
@@ -497,8 +534,7 @@ export const styles = StyleSheet.create({
   },
 
   side_global_fire_image: {
-    height: 42 * utils.widthRatio,
-    width: 66 * utils.widthRatio,
+    height: 144 * utils.widthRatio,
     resizeMode: 'contain',
     alignItems: 'center',
     justifyContent: 'center',
@@ -547,7 +583,7 @@ export const styles = StyleSheet.create({
   profileButtonImage: {
     width: 30 * utils.widthRatio,
     height: 30 * utils.widthRatio,
-    resizeMode: 'contain',
+    resizeMode: 'cover',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 15 * utils.widthRatio
@@ -636,39 +672,21 @@ export const styles = StyleSheet.create({
 
   compass_popup_view: {
     position: 'absolute',
-    width: 85 * utils.widthRatio,
-    height: 32 * utils.widthRatio,
+    width: 145 * utils.widthRatio,
+    height: 64 * utils.widthRatio,
     // height: 97 * utils.widthRatio,
-    alignItems: 'center',
-    justifyContent: 'center',
     flexDirection: 'column',
     right: 0.16 * utils.deviceWidth,
     bottom: 90 * utils.widthRatio,
     borderRadius: 12 * utils.widthRatio,
-    backgroundColor: '#0A0A0A'
+    backgroundColor: 'red'
   },
 
   compass_popup_button: {
     flex: 1,
     flexDirection: 'row',
-    width: 75 * utils.widthRatio,
     height: 20 * utils.widthRatio,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-
-  compass_popup_buy_image: {
-    width: 19 * utils.widthRatio,
-    height: 17 * utils.widthRatio,
-    resizeMode: 'contain',
-    alignSelf: 'center'
-  },
-
-  compass_popup_sell_image: {
-    width: 13 * utils.widthRatio,
-    height: 17 * utils.widthRatio,
-    resizeMode: 'contain',
-    alignSelf: 'center'
+    marginLeft: 20 * utils.widthRatio
   },
 
   compass_popup_post_image: {
@@ -682,10 +700,9 @@ export const styles = StyleSheet.create({
     left: 8 * utils.widthRatio,
     textAlign: "left",
     color: 'white',
-    width: 48 * utils.widthRatio,
     fontSize: 12 * utils.widthRatio, 
     fontWeight: '300',
-    alignSelf: 'center',
+    alignSelf: 'center'
   },
 
 });

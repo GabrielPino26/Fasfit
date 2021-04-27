@@ -48,10 +48,9 @@ class NotificationComments extends React.PureComponent {
     const { getNotificationCommentList } = this.props
     getNotificationCommentList(params).then(async response => {
       if(response) {
-        // console.log("response_user: ", JSON.parse(JSON.stringify(response['data'])))
         this.setState({comments_data: JSON.parse(JSON.stringify(response['data']))})
       }else{
-        Alert.alert("Error", "Get User is failed.")
+        Alert.alert("Error", "Get Notification is failed.")
       }
     }).catch(err => {
       Alert.alert("Error", err)

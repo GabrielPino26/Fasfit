@@ -29,6 +29,7 @@ export const styles = StyleSheet.create({
   },
 
   notificationBackButton: {
+    position: 'absolute',
     marginTop: 24 * utils.widthRatio,
     alignItems: 'flex-start',
     justifyContent: 'center',
@@ -43,7 +44,6 @@ export const styles = StyleSheet.create({
 
   navTitleLabel: {
     flex: 1,
-    marginTop: 24 * utils.widthRatio,
     fontSize: 18 * utils.widthRatio,
     color: 'white', 
     fontWeight: 'bold',
@@ -61,8 +61,8 @@ export const styles = StyleSheet.create({
 
   profile_photo_button: {
     height: 200 * utils.widthRatio,
-    width: 200 * utils.widthRatio,
-    marginTop: 5 * utils.widthRatio,
+    width: 0.85 * utils.deviceWidth,
+    marginTop: 15 * utils.widthRatio,
     alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'center',
@@ -70,20 +70,36 @@ export const styles = StyleSheet.create({
 
   profile_photo_view: {
     height: 200 * utils.widthRatio,
-    width: 200 * utils.widthRatio,
+    width: 0.85 * utils.deviceWidth,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#C8C8C8',
     overflow: "hidden",
-    borderRadius: 16 * utils.widthRatio,
   },
 
   profile_photo_img: {
     height: 200 * utils.widthRatio,
-    width: 200 * utils.widthRatio,
+    width: 0.85 * utils.deviceWidth,
+    resizeMode: 'cover',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  cameraButtonImage: {
+    position: 'absolute',
+    height: 46 * utils.widthRatio,
     resizeMode: 'contain',
     alignItems: 'center',
     justifyContent: 'center',
+    alignSelf: 'center'
+  },
+
+
+  upload_title_label: {
+    color: 'black', 
+    marginTop: 25 * utils.widthRatio,
+    fontSize: 16 * utils.widthRatio, 
+    textAlign: 'center'
   },
 
   title_label: {
@@ -112,14 +128,13 @@ export const styles = StyleSheet.create({
   },
 
   next_button: {
-    width: 300 * utils.widthRatio,
+    width: 200 * utils.widthRatio,
     height: 50 * utils.widthRatio,
     marginTop: 35 * utils.widthRatio,
     marginBottom: 35 * utils.widthRatio,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#0A7AF6',
-    borderRadius: 25 * utils.widthRatio,
+    backgroundColor: 'black',
     alignSelf: 'center',
   },
 

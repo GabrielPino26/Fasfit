@@ -42,6 +42,10 @@ import Notifications from './src/screens/Main/setting/Notifications';
 import AddAccount from './src/screens/Main/setting/AddAccount';
 import WardrobePost from './src/screens/Main/home/WardrobePost';
 import WorldPost from './src/screens/Main/world/WorldPost';
+import FolderPost from './src/screens/Main/home/FolderPost';
+import MediaPost from './src/screens/Main/home/MediaPost';
+import MediaItemPost from './src/screens/Main/home/MediaItemPost';
+import FolderTextPost from './src/screens/Main/home/FolderTextPost';
 
 pushNotifications.configure();
 
@@ -71,6 +75,10 @@ const MainNavigator = createStackNavigator(
     WorldPost: { screen: WorldPost, navigationOptions: { headerShown: false, animationEnabled: false } },
     FaslanceTips: { screen: FaslanceTips, navigationOptions: { headerShown: false, animationEnabled: false } },
     FaslanceTipPost: { screen: FaslanceTipPost, navigationOptions: { headerShown: false, animationEnabled: false } },
+    FolderPost: { screen: FolderPost, navigationOptions: { headerShown: false, animationEnabled: false } },
+    MediaPost: { screen: MediaPost, navigationOptions: { headerShown: false, animationEnabled: false } },
+    MediaItemPost: { screen: MediaItemPost, navigationOptions: { headerShown: false, animationEnabled: false } },
+    FolderTextPost: { screen: FolderTextPost, navigationOptions: { headerShown: false, animationEnabled: false } },
   } 
 )
 

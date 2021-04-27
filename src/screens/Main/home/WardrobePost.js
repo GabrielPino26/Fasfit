@@ -23,6 +23,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const back_button_icon = require('../../../../assets/image/white_back_icon.png');
+const camera_icon = require('../../../../assets/image/camera_icon.png');
 class WardrobePost extends Component {
 
   constructor(props) {
@@ -30,12 +31,15 @@ class WardrobePost extends Component {
     this.state = {
       post_title: '',
       post_description: '',
-      profile_photo_url : '',
+      gallery_photo_url : null,
       profile_photo_data : ''
     }
   }
 
   componentDidMount() {
+    const { navigation } = this.props;
+    const itemImage = navigation.getParam('itemImage', ''); 
+    this.setState({gallery_photo_url: itemImage}); 
   }
 
   handleBack = () => {
@@ -85,7 +89,7 @@ class WardrobePost extends Component {
       mediaType: 'photo',
       includeBase64: true,
     };
-    launchImageLibrary(options, (response) => {
+    launchCamera(options, (response) => {
         console.log('Response = ', response);
 
         if (response.didCancel) {
@@ -97,7 +101,7 @@ class WardrobePost extends Component {
             alert(response.customButton);
         } else {
             this.setState({
-              profile_photo_url: response.uri,
+              gallery_photo_url: response.uri,
               profile_photo_data: response.base64
             });
         }
@@ -111,24 +115,24 @@ class WardrobePost extends Component {
         <Container>
           <View style={styles.content}>
             <View style={styles.headerView}>
-              <TouchableOpacity style={styles.notificationBackButton} onPress={this.handleBack}>
+            <Label style={styles.navTitleLabel}>Folder Post</Label>
+              <TouchableOpacity style={styles.notificationBackButton} onPress={() => this.handleBack()}>
                 <Image style={styles.notificationBackButtonImage} source={back_button_icon}/>
               </TouchableOpacity>
-              <Label style={styles.navTitleLabel}>Wardrobe Post</Label>
             </View>
             <KeyboardAwareScrollView style={styles.keyboard_view}>
-                <TouchableOpacity style={styles.profile_photo_button} onPress={this.handleCamera}>
+                <TouchableOpacity style={styles.profile_photo_button} onPress={() => this.handleCamera()}>
                   <View style={styles.profile_photo_view}>
-                    <Image style={styles.profile_photo_img} source={this.state.profile_photo_url == '' ? null : {uri:this.state.profile_photo_url}} />
+                    <Image style={styles.profile_photo_img} source={this.state.gallery_photo_url == null ? null : {uri:this.state.gallery_photo_url}} />
+                    <Image style={styles.cameraButtonImage} source={camera_icon} />
                   </View>
                 </TouchableOpacity>
-                <Label style={styles.title_label}>Title</Label>
+                <Label style={styles.upload_title_label}>Upload Cover Photo</Label>
+                <Label style={styles.title_label}>Create Folder Name</Label>
                 <Item floatingLabel style={styles.underlinestyle}>
-                  <TextInput placeholder="" onChangeText={this.changeTitle} value={this.state.post_title}/>
+                  <Input placeholder="Please enter folder name" onChangeText={(text) => this.changeTitle(text)} value={this.state.post_title}/>
                 </Item>
-                <Label style={styles.des_label}>Description</Label>
-                <TextInput style={styles.des_text} placeholder="Description" onChangeText={this.changeDescription} multiline/>
-                <TouchableOpacity style={styles.next_button} onPress={this.handleCreate} value={this.state.post_description}>
+                <TouchableOpacity style={styles.next_button} onPress={() => this.handleCreate()}>
                   <Label style={styles.next_button_label}>Save</Label>
                 </TouchableOpacity>
             </KeyboardAwareScrollView>

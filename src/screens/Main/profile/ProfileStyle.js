@@ -53,7 +53,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
-  dmButton: {
+  editButton: {
     flex: 1,
     position: 'absolute',
     alignItems: 'center',
@@ -65,23 +65,24 @@ export const styles = StyleSheet.create({
     })
   },
 
-  dmButtonImage: {
+  pinButton: {
+    flex: 1,
+    position: 'absolute',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 63 * utils.widthRatio,
+    right: 10 * utils.widthRatio,
+    ...ifIphoneX({
+      paddingTop: 20
+    })
+  },
+
+  editButtonImage: {
     height: 34 * utils.widthRatio,
     resizeMode: 'contain',
     alignItems: 'center',
     justifyContent: 'center',
   },
-
-  dmButtonLabel: {
-    width: 34 * utils.widthRatio,
-    height: 34 * utils.widthRatio,
-    marginTop: 11 * utils.widthRatio,
-    marginRight: 5 * utils.widthRatio,
-    fontSize: 16 * utils.widthRatio,
-    color: 'white',
-    textAlign: 'center',
-  },
-
 
   profileContentView: {
     position: 'absolute',
@@ -100,12 +101,29 @@ export const styles = StyleSheet.create({
     borderWidth: 2,
   },
 
+  profileNameView: {
+    width: '100%',
+    flexDirection: 'row',
+    marginTop: 5 * utils.widthRatio,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+
+  checkmarkButtonImage: {
+    marginLeft: 5 * utils.widthRatio,
+    width: 28 * utils.widthRatio,
+    height: 28 * utils.widthRatio,
+    resizeMode: 'contain',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+
   profileNameLabel: {
     fontSize: 20 * utils.widthRatio,
     fontWeight: 'bold',
     color: 'white',
-    marginTop: 5 * utils.widthRatio,
     textAlign: 'center',
+    alignSelf: 'center'
   },
 
   profileAddressLabel: {
