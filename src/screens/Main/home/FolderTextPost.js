@@ -9,8 +9,8 @@ import { styles } from './FolderTextPostStyle';
 import { storage } from '../../../helper/storage';
 import { connect } from 'react-redux';
 import {
-  addWardrobePostItem
-} from '../../../actions/wardrobe'
+  addFolderPost
+} from '../../../actions/folderpost'
 
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
@@ -20,7 +20,7 @@ import { FlatGrid } from 'react-native-super-grid';
 const mapStateToProps = state => ({ });
 
 const mapDispatchToProps = dispatch => ({
-  addWardrobePostItem: params => dispatch(addWardrobePostItem(params))
+  addFolderPost: params => dispatch(addFolderPost(params))
 });
 
 const back_button_icon = require('../../../../assets/image/white_back_icon.png');
@@ -65,21 +65,19 @@ class FolderTextPost extends Component {
 
     let params = {
       user_id: userId,
-      title: this.state.post_title,
-      description: this.state.post_description,
-      image: this.state.profile_photo_data,
-      image_id: 'post_image',
-      total_comments: 0,
-      total_likes: 0
+      folder_picture: this.state.profile_photo_data,
+      folder_caption: this.state.post_title,
+      folder_content: '',
+      folder_tags: this.state.scopeItems,
     }
     console.log("params: ", params);
-    const { addWardrobePostItem } = this.props
-    addWardrobePostItem(params).then(async response => {
+    const { addFolderPost } = this.props
+    addFolderPost(params).then(async response => {
       if(response) {
         console.log("response_post: ", response)
-        this.props.navigation.goBack();
+        Alert.alert("Success", "Text Folder has been created successfully.")
       }else{
-        Alert.alert("Error", "Get Post is failed.")
+        Alert.alert("Error", "Get Text Folder is failed.")
       }
     }).catch(err => {
       Alert.alert("Error", err)

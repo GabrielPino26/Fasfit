@@ -96,6 +96,7 @@ export const styles = StyleSheet.create({
     width: 67 * utils.widthRatio,
     height: 67 * utils.widthRatio,
     borderRadius: 33.5 * utils.widthRatio,
+    resizeMode: 'cover',
     overflow: 'hidden',
     borderColor: 'white',
     borderWidth: 2,

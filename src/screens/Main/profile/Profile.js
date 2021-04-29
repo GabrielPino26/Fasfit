@@ -39,7 +39,10 @@ class Profile extends Component {
       ],
       selectedGridItem: null,
       profileID: '',
-      username: ''
+      username: '',
+      profile_photo_data : '',
+      isUserProfile: false,
+      isFollow: false,
     }
   }
 
@@ -47,12 +50,27 @@ class Profile extends Component {
     const { navigation } = this.props;
     let userInfo  = await storage.getUserInfo();
 	
-    const profileID = navigation.getParam('profileID', ''); 
-    this.setState({profileID: profileID, username: userInfo['username']}); 
-
+    if(userInfo['picture'] !== undefined) {
+      this.setState({profile_photo_data: userInfo['picture']})
+    }
+    const profile = navigation.getParam('profile', null); 
+    if(profile == null) {
+      this.setState({profileID: '', username: userInfo['username'], isUserProfile: false}); 
+    }else{
+      this.setState({profileID: profile['_id'], username: profile['username'], isUserProfile: true}); 
+    }
     await this.getUserList()
 
   }
+
+  // async componentDidUpdate() {
+  //   let userInfo  = await storage.getUserInfo();
+	
+  //   if(userInfo['picture'] !== undefined) {
+  //     this.setState({profile_photo_data: userInfo['picture']})
+  //   }
+  //   this.setState({username: userInfo['username'], isUserProfile: false}); 
+  // }
 
   async getUserList() {
     let userInfo  = await storage.getUserInfo();
@@ -80,6 +98,7 @@ class Profile extends Component {
   }
 
   handleEdit = () => {
+    this.props.navigation.navigate('ProfileEdit')
   }
 
   handlePin = () => {
@@ -95,16 +114,21 @@ class Profile extends Component {
     }
     console.log("params: ", params);
     const { sendFollowInvitation } = this.props
-    sendFollowInvitation(params).then(async response => {
-      if(response) {
-        console.log("response_post: ", response)
-        this.props.navigation.goBack();
-      }else{
-        Alert.alert("Error", "Add Post is failed.")
-      }
-    }).catch(err => {
-      Alert.alert("Error", err)
-    })
+    if(this.state.isFollow) {
+
+    }else{
+      sendFollowInvitation(params).then(async response => {
+        if(response) {
+          console.log("response_post: ", response)
+          this.setState({isFollow: true})
+          // this.props.navigation.goBack();
+        }else{
+          Alert.alert("Error", "Add Post is failed.")
+        }
+      }).catch(err => {
+        Alert.alert("Error", err)
+      })
+    }
   }
 
   handleGridItem = (gridItem) => {
@@ -149,14 +173,18 @@ class Profile extends Component {
             <TouchableOpacity style={styles.profileBackButton} onPress={() => this.handleBack()}>
               <Image style={styles.profileBackButtonImage} source={back_button}/>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.editButton} onPress={() => this.handleEdit()}>
-              <Image style={styles.editButtonImage} source={profile_edit_button}/>
-            </TouchableOpacity>
+            {this.state.isUserProfile ?
+              null
+              :
+              <TouchableOpacity style={styles.editButton} onPress={() => this.handleEdit()}>
+                <Image style={styles.editButtonImage} source={profile_edit_button}/>
+              </TouchableOpacity>
+            }
             <TouchableOpacity style={styles.pinButton} onPress={() => this.handlePin()}>
               <Image style={styles.editButtonImage} source={profile_pin_button}/>
             </TouchableOpacity>
             <View style={styles.profileContentView}>
-              <Image style={styles.profilePhotoImage} source={profile_photo} />
+              <Image style={styles.profilePhotoImage} source={this.state.profile_photo_data == '' ? profile_photo : {uri: `data:image/jpeg;base64,${this.state.profile_photo_data}`}} />
               <TouchableOpacity style={styles.profileNameView} onPress={() => {}}>
                 <Label style={styles.profileNameLabel}>{this.state.username}</Label>
                 <Image style={styles.checkmarkButtonImage} source={profile_checkmark_button}/>
@@ -173,9 +201,13 @@ class Profile extends Component {
                 <Label style={styles.profileFollowingNumLabel}>0</Label>
               </View>
             </View>
-            <TouchableOpacity style={styles.profileFollowButton} onPress={() => this.handleFollow()}>
-              <Label style={styles.profileFollowButtonLabel}>Follow</Label>
-            </TouchableOpacity>
+            {this.state.isUserProfile ?
+              <TouchableOpacity style={styles.profileFollowButton} onPress={() => this.handleFollow()}>
+                <Label style={styles.profileFollowButtonLabel}>{this.state.isFollow ? 'Unfollow' : 'Follow'}</Label>
+              </TouchableOpacity>
+              :
+              null
+            }
           </View>
           <ScrollView 
             style={styles.down_content}

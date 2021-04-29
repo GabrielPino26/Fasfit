@@ -56,7 +56,11 @@ export default class Setting extends Component {
       default:
         break
     }
-    this.props.navigation.navigate(navigation_page);
+    if(item.settingtitle == 'Account') {
+      this.props.navigation.navigate(navigation_page, {profile: null})
+    }else{
+      this.props.navigation.navigate(navigation_page);
+    }
   }
 
   _renderItem = (item) => {

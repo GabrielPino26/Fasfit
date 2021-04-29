@@ -90,40 +90,22 @@ class Home extends Component {
       nav_title: 'FasNet',
       post_user_data: [],
       spinner: false,
-      user_profile_data: {}
+      user_profile_data: {},
+      profile_photo_data : '',
     }
   }
 
   async componentDidMount() {
-    // let userInfo  = await storage.getUserInfo();
-    // console.log("user_info : ", userInfo)
-    // let userId = userInfo['_id']
-    // await this.getUserProfile(userId)
+    let userInfo  = await storage.getUserInfo();
+	
+    if(userInfo['picture'] !== undefined) {
+      this.setState({profile_photo_data: userInfo['picture']})
+    }
+
     await this.getUserList()
     await this.getPostList()
   }
 
-  async getUserProfile(userID) {
-    let params = {
-      user_id: userID,
-    }
-    console.log("params: ", params);
-    const { getUserProfile } = this.props
-    getUserProfile(params).then(async response => {
-
-      if(response) {
-        console.log("user_response : ", response)
-        if(response[user] != {}) {
-          let user_data =  JSON.parse(JSON.stringify(response['user']))
-          this.setState({user_profile_data: user_data})
-        }
-      }else{
-        Alert.alert("Error", "Get User is failed.")
-      }
-    }).catch(err => {
-      Alert.alert("Error", err)
-    })
-  }
 
   async getUserList() {
     let userInfo  = await storage.getUserInfo();
@@ -132,7 +114,6 @@ class Home extends Component {
     let params = {
       user_id: userId,
     }
-    console.log("params: ", params);
     const { getWardrobeUserList } = this.props
     getWardrobeUserList(params).then(async response => {
       if(response) {
@@ -152,7 +133,6 @@ class Home extends Component {
     let params = {
       user_id: userId,
     }
-    console.log("params: ", params);
     const { getWardrobePostList } = this.props
     this.setState({spinner: true});
     getWardrobePostList(params).then(async response => {
@@ -198,8 +178,8 @@ class Home extends Component {
     })
   }
 
-  handleProfile = (profileID) => {
-    this.props.navigation.navigate('Profile', {profileID: profileID});
+  handleProfile = (postUserItem) => {
+    this.props.navigation.navigate('Profile', {profile: postUserItem});
   }
 
   handleDetail = (profileID) => {
@@ -399,8 +379,8 @@ class Home extends Component {
           </TouchableOpacity>
         </View>
         <View style={styles.item_header_view}>
-          <TouchableOpacity style={styles.item_header_profile_button} onPress={() => this.handleProfile(postUserItem['_id'])}>
-            <Image style={styles.item_header_profile_button_image} source={postUserItem['picture'] == null ? profile_button : {uri: postUserItem['picture']}}/>
+          <TouchableOpacity style={styles.item_header_profile_button} onPress={() => this.handleProfile(postUserItem)}>
+            <Image style={styles.item_header_profile_button_image} source={postUserItem['picture'] == '' ? profile_button : {uri: `data:image/jpeg;base64,${postUserItem['picture']}`}}/>
           </TouchableOpacity>
           <View style={styles.item_header_name_view}>
             <Label style={styles.item_header_title_label}>{postUserItem['username']}</Label>
@@ -488,11 +468,11 @@ class Home extends Component {
     if(this.state.bottom_path_button_selected) {
       return (
         <View style={styles.side_menu_path_bg}>
-            <TouchableOpacity style={styles.side_menu_item} onPress={() => this.handleSidePlus}>
+            <TouchableOpacity style={styles.side_menu_item} onPress={() => this.handleSidePlus()}>
               <Image style={styles.side_menu_item_plus} source={side_plus_icon}/>
             </TouchableOpacity>
             <Label style={styles.side_menu_divided}></Label>
-          <TouchableOpacity style={styles.side_menu_path_img_view} onPress={() => this.handleSideTips}>
+          <TouchableOpacity style={styles.side_menu_path_img_view} onPress={() => this.handleSideTips()}>
             <Image style={styles.side_path_tips_image} source={side_path_tips_icon}/>
           </TouchableOpacity>
         </View>
@@ -524,7 +504,7 @@ class Home extends Component {
             <FlatList
               data={this.state.post_data}
               renderItem={({item}) => this._renderItem(item)}
-              keyExtractor={item => item.user_id}
+              keyExtractor={item => item._id}
               style={styles.home_list_view}
               extraData={this.state.refresh}
             />
@@ -566,7 +546,7 @@ class Home extends Component {
         <Container>
           <View style={styles.header_content}>
             <TouchableOpacity style={styles.profileButton} onPress={() => this.handleProfile()}>
-              <Image style={styles.profileButtonImage} source={profile_button}/>
+              <Image style={styles.profileButtonImage} source={this.state.profile_photo_data == '' ? profile_button : {uri: `data:image/jpeg;base64,${this.state.profile_photo_data}`}}/>
             </TouchableOpacity>
             <Label style={styles.homeTitleLabel}>{this.state.nav_title}</Label>
             <TouchableOpacity style={styles.searchButton} onPress={() => this.handleNext()}>

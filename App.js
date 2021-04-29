@@ -46,6 +46,7 @@ import FolderPost from './src/screens/Main/home/FolderPost';
 import MediaPost from './src/screens/Main/home/MediaPost';
 import MediaItemPost from './src/screens/Main/home/MediaItemPost';
 import FolderTextPost from './src/screens/Main/home/FolderTextPost';
+import ProfileEdit from './src/screens/Main/profile/ProfileEdit';
 
 pushNotifications.configure();
 
@@ -79,6 +80,7 @@ const MainNavigator = createStackNavigator(
     MediaPost: { screen: MediaPost, navigationOptions: { headerShown: false, animationEnabled: false } },
     MediaItemPost: { screen: MediaItemPost, navigationOptions: { headerShown: false, animationEnabled: false } },
     FolderTextPost: { screen: FolderTextPost, navigationOptions: { headerShown: false, animationEnabled: false } },
+    ProfileEdit: { screen: ProfileEdit, navigationOptions: { headerShown: false, animationEnabled: false } },
   } 
 )
 

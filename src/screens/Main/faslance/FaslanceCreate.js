@@ -213,7 +213,7 @@ class FaslanceCreate extends Component {
                 <View style={styles.loginHeaderContent}>
                     <Image style={styles.loginLogoImage} source={logoImage}></Image>
                     <Label style={styles.loginTitleLabel}>FasFit</Label>
-                    <TouchableOpacity style={styles.loginCloseButton} onPress={this.handleClose}>
+                    <TouchableOpacity style={styles.loginCloseButton} onPress={() => this.handleClose()}>
                         <Image style={styles.loginCloseImage} source={closeButtonImage}/>
                     </TouchableOpacity>
                 </View>
@@ -231,26 +231,26 @@ class FaslanceCreate extends Component {
                     </Item>                  */}
                     <Label style={styles.loginSubTitleLabel}>Proffesion</Label>
                     <Item floatingLabel style={styles.underlineStyle}>
-                      <Input placeholder='Model' onChangeText={this.changeProffesion} disabled={true} />
+                      <Input placeholder='Model' onChangeText={(value) => this.changeProffesion(value)} disabled={true} />
                     </Item>                 
-                    <TouchableOpacity style={styles.proffesionButton} onPress={this.handleClose}>
+                    <TouchableOpacity style={styles.proffesionButton} onPress={() => this.handleClose()}>
                         <Image style={styles.proffesionImage} source={downArrowImage}/>
                     </TouchableOpacity>
                     <Label style={styles.loginSubTitleLabel}>Location</Label>
                     <Item floatingLabel style={styles.underlineStyle}>
-                      <Input placeholder='Manhattan' onChangeText={this.changeLocation} />
+                      <Input placeholder='Manhattan' onChangeText={(value) => this.changeLocation(value)} />
                     </Item>                 
                     <Label style={styles.loginSubTitleLabel}>Prices</Label>
                     <Item floatingLabel style={styles.underlineStyle}>
-                      <Input placeholder='50$/hr' onChangeText={this.changeLocation} />
+                      <Input placeholder='50$/hr' onChangeText={(value) => this.changeLocation(value)} />
                     </Item>                 
                     <Label style={styles.loginSubTitleLabel}>Summary</Label>
                     <Item floatingLabel style={styles.underlineStyle}>
-                      <Input placeholder='About me' onChangeText={this.changeSummury} />
+                      <Input placeholder='About me' onChangeText={(value) => this.changeSummury(value)} />
                     </Item>                 
                     <Label style={styles.loginSubTitleLabel}>Links</Label>
                     <Item floatingLabel style={styles.underlineStyle}>
-                      <Input placeholder='.com' onChangeText={this.changeLink} />
+                      <Input placeholder='.com' onChangeText={(value) => this.changeLink(value)} />
                     </Item>                 
                     <Label style={styles.loginSubTitleLabel}>Portfolio(Max: 10)</Label>
                     <FlatGrid 
@@ -268,7 +268,7 @@ class FaslanceCreate extends Component {
                       horizontal={false}
                       renderItem={({item}) => this._renderGalleryGridItem(item)}
                     />
-                    <TouchableOpacity style={styles.signupButton} onPress={this.handleSignup}>
+                    <TouchableOpacity style={styles.signupButton} onPress={() => this.handleSignup()}>
                       <Text style={styles.signupButtonTitle}>Sign Up</Text>
                     </TouchableOpacity>
                     <Image style={styles.bottomImage} source={bottomImage}></Image>
