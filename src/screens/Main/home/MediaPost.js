@@ -9,7 +9,6 @@ import { styles } from './MediaPostStyle';
 
 import { connect } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import GridImageView from 'react-native-grid-image-viewer'
 import CameraRoll from '@react-native-community/cameraroll'
 
 const mapStateToProps = state => ({ });
