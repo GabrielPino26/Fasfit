@@ -27,6 +27,7 @@ class FolderPost extends Component {
   }
 
   handleBack = () => {
+    this.props.navigation.state.params.updateData();
     this.props.navigation.goBack();
   }
 

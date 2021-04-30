@@ -3,10 +3,12 @@ import AsyncStorage from '@react-native-community/async-storage'
 const USERTYPE = 'usertype'
 const USERINFO = 'userinfo'
 const DEVICETOKEN = 'devicetoken'
+const POSTTYPE = 'posttype'
 const data = {
     userType: 'personal',
     userInfo: {},
-    deviceToken: ''
+    deviceToken: '',
+    postType: 'wardrobe_post' //world_post, path_post
 }
 
 export const storage = {
@@ -38,6 +40,17 @@ export const storage = {
         data.deviceToken = value
         console.log("token: ", value)
         return AsyncStorage.setItem(DEVICETOKEN, value)
-    }
+    },
+
+    getPostType: async () => {
+        data.postType = await AsyncStorage.getItem(POSTTYPE)
+        return data.postType
+    },
+
+    setPostType: async(value)=> {
+        data.postType = value
+        return AsyncStorage.setItem(POSTTYPE, value)
+    },
+
 
 }

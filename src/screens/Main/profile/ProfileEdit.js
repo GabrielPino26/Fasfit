@@ -68,7 +68,8 @@ class ProfileEdit extends Component {
     }
 
     handleClose = () => {
-        this.props.navigation.goBack();
+      this.props.navigation.state.params.updateData();
+      this.props.navigation.goBack();
     }
 
     handlePhotoEdit = () => {

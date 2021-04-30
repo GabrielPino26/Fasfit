@@ -48,6 +48,7 @@ class FolderTextPost extends Component {
   }
 
   handleBack = () => {
+    this.props.navigation.state.params.updateData();
     this.props.navigation.goBack();
   }
 
@@ -62,12 +63,14 @@ class FolderTextPost extends Component {
   handleCreate = async () => {
     let userInfo  = await storage.getUserInfo();
     let userId = userInfo['_id']
+    let postType = await storage.getPostType();
 
     let params = {
       user_id: userId,
-      folder_picture: this.state.profile_photo_data,
+      folder_type: postType,
+      folder_picture: '',
       folder_caption: this.state.post_title,
-      folder_content: '',
+      folder_content: this.state.post_description,
       folder_tags: this.state.scopeItems,
     }
     console.log("params: ", params);

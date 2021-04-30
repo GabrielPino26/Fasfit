@@ -16,6 +16,8 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { TextInput } from 'react-native-gesture-handler';
 import { FlatGrid } from 'react-native-super-grid';
+import RNFS from 'react-native-fs';
+import ImageResizer from 'react-native-image-resizer';
 
 const mapStateToProps = state => ({ });
 
@@ -41,14 +43,29 @@ class MediaItemPost extends Component {
       selectedItem: null,
       refresh: false,
       selectedSubItem: '',
+      mode: 'contain',
+      onlyScaleDown: false,
 
     }
   }
 
   componentDidMount() {
     const { navigation } = this.props;
+    const { mode, onlyScaleDown } = this.state;
     const itemImage = navigation.getParam('itemImage', ''); 
-    this.setState({gallery_photo_url: itemImage}); 
+    if(itemImage !== null && itemImage.length > 0) {
+      ImageResizer.createResizedImage(itemImage, 200, 150, 'JPEG', 100, 0, undefined, false, { mode, onlyScaleDown })
+      .then(resizedImage => {
+        RNFS.readFile(resizedImage.uri, 'base64')
+        .then(res =>{
+          this.setState({profile_photo_data: res}); 
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    }
+    
   }
 
   handleBack = () => {
@@ -66,12 +83,14 @@ class MediaItemPost extends Component {
   handleCreate = async () => {
     let userInfo  = await storage.getUserInfo();
     let userId = userInfo['_id']
+    let postType = await storage.getPostType();
 
     let params = {
       user_id: userId,
-      folder_picture: '',
+      folder_type: postType,
+      folder_picture: this.state.profile_photo_data,
       folder_caption: this.state.post_title,
-      folder_content: this.state.post_description,
+      folder_content: '',
       folder_tags: this.state.scopeItems,
     }
     console.log("params: ", params);
@@ -108,7 +127,6 @@ class MediaItemPost extends Component {
             alert(response.customButton);
         } else {
             this.setState({
-              gallery_photo_url: response.uri,
               profile_photo_data: response.base64
             });
         }
@@ -202,7 +220,7 @@ class MediaItemPost extends Component {
             <KeyboardAwareScrollView style={styles.keyboard_view}>
                 <TouchableOpacity style={styles.profile_photo_button} onPress={() => this.handleCamera()}>
                   <View style={styles.profile_photo_view}>
-                    <Image style={styles.profile_photo_img} source={this.state.gallery_photo_url == null ? null : {uri:this.state.gallery_photo_url}} />
+                    <Image style={styles.profile_photo_img} source={this.state.profile_photo_data == '' ? null : {uri: `data:image/jpeg;base64,${this.state.profile_photo_data}`}} />
                   </View>
                 </TouchableOpacity>
                 <Label style={styles.title_label}>Cation</Label>

@@ -8,6 +8,7 @@ import {
   SIGNUP_SUCCESS,
   GET_USER_SUCCESS,
   SET_SCOPE_SUCCESS,
+  GET_USERBYID_SUCCESS
 } from '../../constants/actionTypes';
 
 const initialState = {
@@ -47,6 +48,9 @@ const reducer = (state = initialState, action) => {
       newState.user = action.result.data
       return newState
     case GET_USER_SUCCESS:
+      newState.user = action.user
+      return newState
+    case GET_USERBYID_SUCCESS:
       newState.user = action.user
       return newState
     case LOGOUT_SUCCESS:

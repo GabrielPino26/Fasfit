@@ -245,10 +245,17 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
-  item_content_comment: {
+  item_caption_comment: {
     color: '#242A38',
     width: 0.74 * utils.deviceWidth - 40 * utils.widthRatio,
     fontSize: 16 * utils.widthRatio, 
+    textAlign: 'left',
+  },
+
+  item_description_comment: {
+    color: '#242A38',
+    width: 0.74 * utils.deviceWidth - 40 * utils.widthRatio,
+    fontSize: 12 * utils.widthRatio, 
     textAlign: 'left',
   },
 

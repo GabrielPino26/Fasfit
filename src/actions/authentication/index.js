@@ -8,11 +8,13 @@ import {
   GET_USER_SUCCESS,
   CHECK_LOGIN_SUCCESS,
   SET_SCOPE_SUCCESS,
-  FORGOT_SUCCESS
+  FORGOT_SUCCESS,
+  GET_USERBYID_SUCCESS
 } from '../../constants/actionTypes'
 
 import {
     postDataService,
+    fetchDataService
 } from '../apis'
 
 export function fetchingData () {
@@ -62,6 +64,14 @@ export function getUserSuccess(user) {
     user
   }
 }
+
+export function getUserByIdSuccess(user) {
+  return {
+    type: GET_USERBYID_SUCCESS,
+    user
+  }
+}
+
 export function logoutSuccess() {
   return {
       type: LOGOUT_SUCCESS,
@@ -179,5 +189,25 @@ export function forgotPassword(params) {
       .catch((err) => {
           dispatch(operationFailed(err))
       })
+  }
+}
+
+export function getUserById(params) {
+  console.log("getUserById")
+  return (dispatch) => {
+    dispatch(fetchingData())
+    return fetchDataService('/getUserById', params)
+    .then((response) => {
+      console.log("user_response : ", response)
+      if(response.data) {
+        dispatch(getUserByIdSuccess(response))
+        return response.data
+      }else{
+        dispatch(operationFailed(response.errors))
+      }
+    })
+    .catch((err) => {
+      dispatch(operationFailed(err))
+    })
   }
 }

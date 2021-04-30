@@ -14,6 +14,7 @@ import Spinner from 'react-native-loading-spinner-overlay';
 
 import { storage } from '../../../helper/storage';
 import { connect } from 'react-redux';
+import Moment from 'moment';
 import {
   getWardrobeUserList,
   getWardrobePostList,
@@ -23,6 +24,14 @@ import {
   sendCommentNotification
 } from '../../../actions/wardrobe'
 
+import {
+  getFolderPostList,
+} from '../../../actions/folderpost'
+
+import {
+  getUserById,
+} from '../../../actions/authentication'
+
 const mapStateToProps = state => ({ });
 
 const mapDispatchToProps = dispatch => ({
@@ -31,7 +40,9 @@ const mapDispatchToProps = dispatch => ({
   addWardrobePostItem: params => dispatch(addWardrobePostItem(params)),
   getUserProfile: params => dispatch(getUserProfile(params)),
   sendLikeNotification: params => dispatch(sendLikeNotification(params)),
-  sendCommentNotification: params => dispatch(sendCommentNotification(params))
+  sendCommentNotification: params => dispatch(sendCommentNotification(params)),
+  getFolderPostList: params => dispatch(getFolderPostList(params)),
+  getUserById: params => dispatch(getUserById(params))
 });
 
 const profile_button = require('../../../../assets/image/profile_avatar.png');
@@ -96,17 +107,22 @@ class Home extends Component {
   }
 
   async componentDidMount() {
+    this.updateData();
+  }
+
+
+  updateData = async() => {
     let userInfo  = await storage.getUserInfo();
 	
     if(userInfo['picture'] !== undefined) {
       this.setState({profile_photo_data: userInfo['picture']})
     }
 
-    await this.getUserList()
-    await this.getPostList()
+    if(this.state.bottom_hanger_button_selected) {
+      await this.getUserList()
+      await this.getFolderPost()
+    }
   }
-
-
   async getUserList() {
     let userInfo  = await storage.getUserInfo();
     console.log("user_info : ", userInfo)
@@ -127,26 +143,32 @@ class Home extends Component {
     })
   }
 
-  async getPostList() {
-    let userInfo  = await storage.getUserInfo();
-    let userId = userInfo['_id']
-    let params = {
-      user_id: userId,
+  async getFolderPost() {
+    var folder_type = ''
+    if(this.state.bottom_hanger_button_selected) {
+      folder_type = 'wardrobe_post'
+    }else if(this.state.bottom_global_button_selected) {
+      folder_type = 'world_post'
+    }else if(this.state.bottom_path_button_selected) {
+      folder_type = 'path_post'
     }
-    const { getWardrobePostList } = this.props
-    this.setState({spinner: true});
-    getWardrobePostList(params).then(async response => {
+
+    let params = {
+      folder_type: folder_type
+    }
+    const { getFolderPostList } = this.props
+    getFolderPostList(params).then(async response => {
       if(response) {
+        this.setState({spinner: false});
         let postData = JSON.parse(JSON.stringify(response['data']))
-        console.log("response_post: ", postData)
-        this.setState({post_user_data: []})
+        console.log("response_profile_post: ", postData)
         for (let postObject of postData) {
           let user_id = postObject['user_id']
-          await this.getProfilePost(user_id)
+          await this.getUserById(user_id)
         }
         this.setState({post_data: postData})
       }else{
-        this.setState({spinner: false});
+        this.setState({spinner: false, post_data: []});
         Alert.alert("Error", "Get Post is failed.")
       }
     }).catch(err => {
@@ -155,31 +177,33 @@ class Home extends Component {
     })
   }
 
-  async getProfilePost(userID) {
+  async getUserById(userId) {
     let params = {
-      user_id: userID,
+      user_id: userId,
     }
-    const { getUserProfile } = this.props
-    getUserProfile(params).then(async response => {
+    const { getUserById } = this.props
+    getUserById(params).then(async response => {
       if(response) {
-        this.setState({spinner: false});
-        console.log("response_profile_post: ", JSON.parse(JSON.stringify(response['user'])))
-        let userData = JSON.parse(JSON.stringify(response['user']))
+        let user_data = JSON.parse(JSON.stringify(response['data']))
         let userPostData = this.state.post_user_data
-        userPostData.push(userData)
+        userPostData.push(user_data)
         this.setState({post_user_data: userPostData})
       }else{
-        this.setState({spinner: false});
-        Alert.alert("Error", "Get Post is failed.")
+        Alert.alert("Error", "Get User is failed.")
       }
     }).catch(err => {
-      this.setState({spinner: false});
       Alert.alert("Error", err)
     })
   }
 
+
   handleProfile = (postUserItem) => {
-    this.props.navigation.navigate('Profile', {profile: postUserItem});
+    this.props.navigation.navigate("Profile", {
+      updateData: () => {
+        this.updateData()
+      },
+      profile: postUserItem
+    })
   }
 
   handleDetail = (profileID) => {
@@ -304,19 +328,35 @@ class Home extends Component {
   handlePopupBuy = () => {
   }
 
-  handleFolderPost = () => {
-    this.props.navigation.navigate('FolderPost');
+  handleFolderPost = async() => {
+    if(this.state.bottom_hanger_button_selected) {
+      await storage.setPostType('wardrobe_post')
+    }else if(this.state.bottom_global_button_selected) {
+      await storage.setPostType('world_post')
+    }else if(this.state.bottom_path_button_selected) {
+      await storage.setPostType('path_post')
+    }
+    this.props.navigation.navigate("FolderPost", {
+      updateData: async() => {
+        await updateData()
+      }
+    })
+    // this.props.navigation.navigate('FolderPost');
   }
 
-  handleShortcutPost = () => {
-    this.props.navigation.navigate('FolderPost');
-    // if(this.state.bottom_hanger_button_selected) {
-    //   this.props.navigation.navigate('WardrobePost');
-    // }else if(this.state.bottom_global_button_selected) {
-    //   this.props.navigation.navigate('WorldPost');
-    // }else if(this.state.bottom_path_button_selected) {
-    //   // this.props.navigation.navigate('Notification');
-    // }
+  handleShortcutPost = async () => {
+    if(this.state.bottom_hanger_button_selected) {
+      await storage.setPostType('wardrobe_post')
+    }else if(this.state.bottom_global_button_selected) {
+      await storage.setPostType('world_post')
+    }else if(this.state.bottom_path_button_selected) {
+      await storage.setPostType('path_post')
+    }
+    this.props.navigation.navigate("FolderPost", {
+      updateData: async() => {
+        await updateData()
+      }
+    })
   }
 
   handleGridItem = (gridItem) => {
@@ -362,19 +402,18 @@ class Home extends Component {
       return null;
     }
 
-    var scope_type = '';
-
-    for (let i = 0; i < postUserItem['scope_type'].length; i++) {
-      scope_type = scope_type + postUserItem['scope_type'][i] + ','
+    var folder_tag = '';
+    for (let i = 0; i < item['folder_tags'].length; i++) {
+      folder_tag = folder_tag + item['folder_tags'][i] + ','
     }
-    scope_type = scope_type.substring(0, scope_type.length - 1);
+    folder_tag = folder_tag.substring(0, folder_tag.length - 1);
     return (
       <View style={styles.list_item_view}>
         <View style={styles.item_top_view}>
-          <TouchableOpacity style={styles.item_top_detail_button} onPress={() => this.handleDetail(postUserItem['_id'])}>
+          <TouchableOpacity style={styles.item_top_detail_button} onPress={() => this.handleDetail(item['user_id'])}>
             <Image style={styles.item_top_detail_button_image} source={detail_image}/>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.item_top_share_button} onPress={() => this.handleShortcutPost(postUserItem['_id'])}>
+          <TouchableOpacity style={styles.item_top_share_button} onPress={() => this.handleShortcutPost(item['user_id'])}>
             <Image style={styles.item_top_share_button_image} source={share_image}/>
           </TouchableOpacity>
         </View>
@@ -384,8 +423,8 @@ class Home extends Component {
           </TouchableOpacity>
           <View style={styles.item_header_name_view}>
             <Label style={styles.item_header_title_label}>{postUserItem['username']}</Label>
-            <Label style={styles.item_header_time_label}>{scope_type != '' ? scope_type: postUserItem['usertype']}</Label>
-            <Label style={styles.item_header_time_label}>{postItem['createdAt']}</Label>
+            <Label style={styles.item_header_time_label}>{folder_tag != '' ? folder_tag: ''}</Label>
+            <Label style={styles.item_header_time_label}>{Moment(item['createdAt']).format('d MMMM, yy, HH:mm')}</Label>
           </View>
           {/* <View style={styles.item_header_tail_view}>
             <TouchableOpacity style={styles.item_header_share_button} onPress={this.handleBack}>
@@ -403,8 +442,9 @@ class Home extends Component {
         </View>
         <View style={styles.item_content_view}>
           {/* <Label style={styles.item_cost_label}>$299</Label> */}
-          <Image style={styles.item_content_image} source={{uri: `data:image/jpeg;base64,${postItem['image']}`}}/>
-          <Text style={styles.item_content_comment}>{postItem['description']}</Text>
+          <Image style={styles.item_content_image} source={{uri: `data:image/jpeg;base64,${item['folder_picture']}`}}/>
+          <Text style={styles.item_caption_comment}>{item['folder_caption']}</Text>
+          <Text style={styles.item_description_comment}>{item['folder_content']}</Text>
         </View>
         <View style={styles.item_bottom_view}>
           <Label style={styles.item_bottom_line} />

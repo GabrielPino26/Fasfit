@@ -63,6 +63,15 @@ class Profile extends Component {
 
   }
 
+  updateData = async() => {
+    let userInfo  = storage.getUserInfo();
+	
+    if(userInfo['picture'] !== undefined) {
+      this.setState({profile_photo_data: userInfo['picture']})
+    }
+  }
+
+
   // async componentDidUpdate() {
   //   let userInfo  = await storage.getUserInfo();
 	
@@ -93,12 +102,18 @@ class Profile extends Component {
     })
   }
 
-  handleBack = () => {
+  handleBack =  () => {
+    this.props.navigation.state.params.updateData();
     this.props.navigation.goBack();
   }
 
   handleEdit = () => {
-    this.props.navigation.navigate('ProfileEdit')
+    this.props.navigation.navigate('ProfileEdit', {
+      updateData: () => {
+        this.updateData()
+      },
+
+    })
   }
 
   handlePin = () => {

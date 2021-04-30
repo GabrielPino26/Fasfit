@@ -12,10 +12,16 @@ import WorldOutGroup from './WorldOutGroup';
 
 import { storage } from '../../../helper/storage';
 import { connect } from 'react-redux';
+import Moment from 'moment';
+
 import {
   getWorldList,
   getWorldDetailByName
 } from '../../../actions/world'
+
+import {
+  getFolderPostList,
+} from '../../../actions/folderpost'
 
 const back_button_icon = require('../../../../assets/image/white_back_icon.png');
 const search_button_icon = require('../../../../assets/image/search_icon.png');
@@ -25,6 +31,7 @@ const mapStateToProps = state => ({ });
 const mapDispatchToProps = dispatch => ({
   getWorldList: params => dispatch(getWorldList(params)),
   getWorldDetailByName: params => dispatch(getWorldDetailByName(params)),
+  getFolderPostList: params => dispatch(getFolderPostList(params)),
 });
 
 class WorldInfo extends Component {
@@ -43,6 +50,7 @@ class WorldInfo extends Component {
 
   async componentDidMount() {
     await this.getWorldNames()
+    await this.getFolderPost()
   }
 
   async getWorldNames() {
@@ -57,10 +65,10 @@ class WorldInfo extends Component {
       if(response) {
         console.log("response_user: ", JSON.parse(JSON.stringify(response['data'])))
         let worldNames = JSON.parse(JSON.stringify(response['data']))
-        this.setState({world_post: []})
-        for (let worldName of worldNames) {
-          await this.getWorldPostByName(worldName)
-        }
+        // this.setState({world_post: []})
+        // for (let worldName of worldNames) {
+        //   await this.getWorldPostByName(worldName)
+        // }
         this.setState({world_names: worldNames})
       }else{
         Alert.alert("Error", "Get User is failed.")
@@ -95,6 +103,27 @@ class WorldInfo extends Component {
 
   }
 
+  async getFolderPost() {
+    var folder_type = 'world_post'
+    let params = {
+      folder_type: folder_type
+    }
+    const { getFolderPostList } = this.props
+    getFolderPostList(params).then(async response => {
+      if(response) {
+        this.setState({spinner: false});
+        let postData = JSON.parse(JSON.stringify(response['data']))
+        console.log("response_profile_post: ", postData)
+        this.setState({world_post: postData})
+      }else{
+        this.setState({spinner: false, post_data: []});
+        Alert.alert("Error", "Get Post is failed.")
+      }
+    }).catch(err => {
+      this.setState({spinner: false});
+      Alert.alert("Error", err)
+    })
+  }
   handleBack = () => {
     this.props.navigation.goBack();
   }
@@ -122,13 +151,13 @@ class WorldInfo extends Component {
       return (
         <TouchableOpacity  style={styles.worldwide_item_view} onPress={() => this.handleSelection(item['user_id'])}>
           <View style={styles.item_img_view}>
-            <Image style={styles.item_image} source={{uri: item['image']}}/>
-            <Label style={styles.item_detail_2_label}>{item['content2']}</Label>
+            <Image style={styles.item_image} source={{uri: item['folder_picture']}}/>
+            <Label style={styles.item_detail_2_label}>{item['folder_caption']}</Label>
           </View>
           <View style={styles.item_info_view}>
-            <Label style={styles.item_name_label}>{item['title']}</Label>
-            <Label style={styles.item_datetime_label}>{item['createdAt']}</Label>
-            <Label style={styles.item_detail_1_label}>{item['content1']}</Label>
+            <Label style={styles.item_name_label}>{item['folder_caption']}</Label>
+            <Label style={styles.item_datetime_label}>{Moment(item['createdAt']).format('d MMMM, yy, HH:mm')}</Label>
+            <Label style={styles.item_detail_1_label}>{item['folder_content']}</Label>
           </View>
         </TouchableOpacity>
       )
@@ -136,13 +165,13 @@ class WorldInfo extends Component {
       return (
         <TouchableOpacity  style={styles.worldwide_item_view} onPress={() => this.handleSelection(item['user_id'])}>
           <View style={styles.item_info_view}>
-            <Label style={styles.item_name_label}>{item['title']}</Label>
-            <Label style={styles.item_datetime_label}>{item['createdAt']}</Label>
-            <Label style={styles.item_detail_1_label}>{item['content1']}</Label>
+            <Label style={styles.item_name_label}>{item['folder_caption']}</Label>
+            <Label style={styles.item_datetime_label}>{Moment(item['createdAt']).format('d MMMM, yy, HH:mm')}</Label>
+            <Label style={styles.item_detail_1_label}>{item['folder_content']}</Label>
           </View>
           <View style={styles.item_img_view}>
-            <Image style={styles.item_image} source={item['image']}/>
-            <Label style={styles.item_detail_2_label}>{item['content2']}</Label>
+            <Image style={styles.item_image} source={item['folder_picture']}/>
+            <Label style={styles.item_detail_2_label}>{item['folder_caption']}</Label>
           </View>
         </TouchableOpacity>
       )
@@ -152,10 +181,10 @@ class WorldInfo extends Component {
 
   render() {
     let nTabIndex = 0
-    let worldData = []
-    if(this.state.world_post.length > 0) {
-      worldData = this.state.world_post[this.state.selectedWorldTab]
-    }
+    // let worldData = []
+    // if(this.state.world_post.length > 0) {
+    //   worldData = this.state.world_post[this.state.selectedWorldTab]
+    // }
     return (
       <StyleProvider style={getTheme(theme)}>
         <Container>
@@ -194,9 +223,9 @@ class WorldInfo extends Component {
             </View>
             <View style={styles.tab_content_view}>
               <FlatList
-                data={worldData}
+                data={this.state.world_post}
                 renderItem={({item, index}) => this._renderItem(item, index)}
-                keyExtractor={item => item.userid}
+                keyExtractor={item => item.user_id}
                 style={styles.world_list_view}
                 extraData={[]}
               />

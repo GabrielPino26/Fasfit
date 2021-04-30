@@ -24,7 +24,7 @@ export const styles = StyleSheet.create({
     height: 90 * utils.widthRatio,
     backgroundColor: 'black',
     ...ifIphoneX({
-	paddingTop: 16
+	paddingTop: 20
 	})
   },
 
