@@ -23,9 +23,9 @@ export const styles = StyleSheet.create({
     },
 
     loginLogoImage: {
-        height: 32 * utils.widthRatio,
+        height: 30 * utils.widthRatio,
         resizeMode: 'contain',
-        marginTop: 21 * utils.widthRatio,
+        marginTop: 24 * utils.widthRatio,
         left: 4 * utils.widthRatio,
     },
 

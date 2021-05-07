@@ -21,8 +21,8 @@ export default class Notification extends Component {
     this.state = {
       selectedLikeTab: true,
       selectedCommentsTab: false,
-      selectedSellTab: false,
-      selectedPurchaseTab: false,
+      selectedMentionsTab: false,
+      selectedFollowersTab: false,
     }
   }
 
@@ -35,25 +35,25 @@ export default class Notification extends Component {
 
   handleTabLike = () => {
     if(!this.state.selectedLikeTab) {
-      this.setState({selectedLikeTab: true, selectedCommentsTab: false, selectedSellTab: false, selectedPurchaseTab: false});
+      this.setState({selectedLikeTab: true, selectedCommentsTab: false, selectedMentionsTab: false, selectedFollowersTab: false, selectedScheduleTab: false});
     }
   }
 
   handleTabComments = () => {
     if(!this.state.selectedCommentsTab) {
-      this.setState({selectedLikeTab: false, selectedCommentsTab: true, selectedSellTab: false, selectedPurchaseTab: false});
+      this.setState({selectedLikeTab: false, selectedCommentsTab: true, selectedMentionsTab: false, selectedFollowersTab: false, selectedScheduleTab: false});
     }
   }
 
-  handleTabSell = () => {
-    if(!this.state.selectedSellTab) {
-      this.setState({selectedLikeTab: false, selectedCommentsTab: false, selectedSellTab: true, selectedPurchaseTab: false});
+  handleTabMentions = () => {
+    if(!this.state.selectedMentionsTab) {
+      this.setState({selectedLikeTab: false, selectedCommentsTab: false, selectedMentionsTab: true, selectedFollowersTab: false,selectedScheduleTab: false});
     }
   }
 
-  handleTabPurchase = () => {
-    if(!this.state.selectedPurchaseTab) {
-      this.setState({selectedLikeTab: false, selectedCommentsTab: false, selectedSellTab: false, selectedPurchaseTab: true});
+  handleTabFollowers = () => {
+    if(!this.state.selectedMentionsTab) {
+      this.setState({selectedLikeTab: false, selectedCommentsTab: false, selectedMentionsTab: false, selectedFollowersTab: true,selectedScheduleTab: false});
     }
   }
 
@@ -67,51 +67,51 @@ export default class Notification extends Component {
         <Container>
           <View style={styles.content}>
             <View style={styles.headerView}>
-              <TouchableOpacity style={styles.notificationBackButton} onPress={this.handleBack}>
+              <TouchableOpacity style={styles.notificationBackButton} onPress={() => this.handleBack()}>
                 <Image style={styles.notificationBackButtonImage} source={back_button_icon}/>
               </TouchableOpacity>
               <Label style={styles.navTitleLabel}>Notifications</Label>
-              <TouchableOpacity style={styles.notificationSearchButton} onPress={this.handleBack}>
-                <Image style={styles.notificationSearchButtonImage} source={search_button_icon}/>
+              <TouchableOpacity style={styles.notificationSearchButton} onPress={() => this.handleBack()}>
+                {/* <Image style={styles.notificationSearchButtonImage} source={search_button_icon}/> */}
               </TouchableOpacity>
             </View>
             <View style={styles.tabView}>
               {this.state.selectedLikeTab ?
-                <TouchableOpacity style={styles.selected_tab_button} onPress={this.handleTabLike}>
+                <TouchableOpacity style={styles.selected_tab_button} onPress={() => this.handleTabLike()}>
                   <Label style={styles.selected_tab_label}>Like</Label>
                 </TouchableOpacity>
                 :
-                <TouchableOpacity style={styles.normal_tab_button} onPress={this.handleTabLike}>
+                <TouchableOpacity style={styles.normal_tab_button} onPress={() => this.handleTabLike()}>
                   <Label style={styles.normal_tab_label}>Like</Label>
                 </TouchableOpacity>
               }
               {this.state.selectedCommentsTab ?
-                <TouchableOpacity style={styles.selected_tab_button} onPress={this.handleTabComments}>
+                <TouchableOpacity style={styles.selected_tab_button} onPress={() => this.handleTabComments()}>
                   <Label style={styles.selected_tab_label}>Comments</Label>
                 </TouchableOpacity>
                 :
-                <TouchableOpacity style={styles.normal_tab_button} onPress={this.handleTabComments}>
+                <TouchableOpacity style={styles.normal_tab_button} onPress={() => this.handleTabComments()}>
                   <Label style={styles.normal_tab_label}>Comments</Label>
                 </TouchableOpacity>
               }
-              {/* {this.state.selectedSellTab ?
-                <TouchableOpacity style={styles.selected_tab_button} onPress={this.handleTabSell}>
-                  <Label style={styles.selected_tab_label}>Sell</Label>
+              {this.state.selectedMentionsTab ?
+                <TouchableOpacity style={styles.selected_tab_button} onPress={() => this.handleTabMentions()}>
+                  <Label style={styles.selected_tab_label}>Mentions</Label>
                 </TouchableOpacity>
                 :
-                <TouchableOpacity style={styles.normal_tab_button} onPress={this.handleTabSell}>
-                  <Label style={styles.normal_tab_label}>Sell</Label>
+                <TouchableOpacity style={styles.normal_tab_button} onPress={() => this.handleTabMentions()}>
+                  <Label style={styles.normal_tab_label}>Mentions</Label>
                 </TouchableOpacity>
               }
-              {this.state.selectedPurchaseTab ?
-                <TouchableOpacity style={styles.selected_tab_button} onPress={this.handleTabPurchase}>
-                  <Label style={styles.selected_tab_label}>Purchase</Label>
+              {this.state.selectedFollowersTab ?
+                <TouchableOpacity style={styles.selected_tab_button} onPress={() => this.handleTabFollowers()}>
+                  <Label style={styles.selected_tab_label}>Followers</Label>
                 </TouchableOpacity>
                 :
-                <TouchableOpacity style={styles.normal_tab_button} onPress={this.handleTabPurchase}>
-                  <Label style={styles.normal_tab_label}>Purchase</Label>
+                <TouchableOpacity style={styles.normal_tab_button} onPress={() => this.handleTabFollowers()}>
+                  <Label style={styles.normal_tab_label}>Followers</Label>
                 </TouchableOpacity>
-              } */}
+              }
             </View>
             <View style={styles.tab_content_view}>
               {this.state.selectedLikeTab ? 
@@ -122,11 +122,11 @@ export default class Notification extends Component {
                 <NotificationComments />
                 : null
               }
-              {this.state.selectedSellTab ? 
+              {this.state.selectedMentionsTab ? 
                 <NotificationSell />
                 : null
               }
-              {this.state.selectedPurchaseTab ? 
+              {this.state.selectedFollowersTab ? 
                 <NotificationPurchase
                   onClickTrackPurchase = {this.handleTrackPurchase.bind(this)}
                  />

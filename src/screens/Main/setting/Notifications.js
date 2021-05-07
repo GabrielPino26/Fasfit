@@ -22,7 +22,7 @@ export default class Notifications extends Component {
         {notificationid:'005', notificationtitle:'New Followers', notificationselected: false},
         {notificationid:'006', notificationtitle:'Schedule Notices', notificationselected: false},
         {notificationid:'007', notificationtitle:'Billing From Notices', notificationselected: false},
-        {notificationid:'008', notificationtitle:'Schedule Notifications', notificationselected: false},
+        // {notificationid:'008', notificationtitle:'Schedule Notifications', notificationselected: false},
       ],
     }
   }

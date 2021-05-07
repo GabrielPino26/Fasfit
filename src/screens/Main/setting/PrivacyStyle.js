@@ -45,7 +45,7 @@ export const styles = StyleSheet.create({
   },
   navTitleLabel: {
     marginTop: 24 * utils.widthRatio,
-    fontSize: 18 * utils.widthRatio,
+    fontSize: 24 * utils.widthRatio,
     color: 'white', 
     fontWeight: 'bold',
     textAlign: 'center',
@@ -62,7 +62,6 @@ export const styles = StyleSheet.create({
   },
 
   setting_item_view: {
-    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     width: '90%',
@@ -99,28 +98,39 @@ export const styles = StyleSheet.create({
   },
 
   everyoneButton: {
-    flexDirection: 'row',
-    alignItems: 'flex-end',
     justifyContent: 'center',
+    borderWidth: 0,
+    marginTop: 1 * utils.widthRatio,
+    marginBottom: 4 * utils.widthRatio,
+    width: 155 * utils.widthRatio,
+    height: 35 * utils.widthRatio
   },
 
   everyoneButtonText: {
     color: '#0A9BEF',
     alignItems: 'center',
     justifyContent: 'center',
-    textAlign: 'left',
-    fontSize: 10 * utils.widthRatio,
+    textAlign: 'center',
+    fontSize: 12 * utils.widthRatio,
     alignSelf: 'center'
   },
 
   proffesionImage: {
     marginLeft: 2 * utils.widthRatio,
     marginTop: 2 * utils.widthRatio,
-    height: 7 * utils.widthRatio,
+    height: 14 * utils.widthRatio,
     resizeMode: 'contain',
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'center'
   },
 
+  dropdownContainer: {
+    borderWidth: 0,
+    height: 100 * utils.widthRatio
+  },
+
+  listitemContainer: {
+    backgroundColor: 'white',
+  }
 });

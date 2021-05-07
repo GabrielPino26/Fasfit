@@ -14,6 +14,9 @@ import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { GalleryImage } from './GalleryImage'
 import { storage } from '../../../helper/storage';
 import { connect } from 'react-redux';
+
+import DropDownPicker from 'react-native-dropdown-picker';
+
 import {
   addFaslanceAccount
 } from '../../../actions/faslance'
@@ -41,14 +44,29 @@ class FaslanceCreate extends Component {
         summery: '',
         link: '',
         profile_grid_data: [
-	new GalleryImage('000', require('../../../../assets/image/add_picture_icon.png'))
+        	new GalleryImage('000', require('../../../../assets/image/add_picture_icon.png'))
         ],
         gallery_grid_data: [
-	new GalleryImage('000', require('../../../../assets/image/add_picture_icon.png'))
+        	new GalleryImage('000', require('../../../../assets/image/add_picture_icon.png'))
         ],
         profile_photo_url : '',
         profile_photo_data : '',
-        gallery_image_data: []
+        gallery_image_data: [],
+        niche_data: [
+          {label: 'Designer', value: 'designer'}, 
+          {label: 'Stylist', value: 'stylist'},
+          {label: 'Makeup Artist', value: 'makeup'},
+          {label: 'Model', value: 'model'},
+          {label: 'Digital Artist', value: 'digital'},
+          {label: 'Illustrator', value: 'illustrator'},
+          {label: 'Graphic Designer', value: 'graphic'},
+          {label: 'Brand', value: 'brand'},
+          {label: 'Writer', value: 'writer'},
+          {label: 'Photographer', value: 'photographer'},
+          {label: 'Hairstylist', value: 'hairstylist'},
+        ],
+        niche_open: false,
+        niche_value: 'designer'
       }   
     }
   
@@ -60,6 +78,17 @@ class FaslanceCreate extends Component {
     handleLogin = () => {
       // console.log("clicked Login Button");
       this.props.navigation.navigate('Home')
+    }
+
+    handleNicheOpen = (value) => {
+      this.setState({niche_open: value})
+    }
+
+    handleNicheValue = (callback) => {
+      this.setState(state => ({
+        niche_value: callback(state.value)
+      }));
+  
     }
 
     handleClose = () => {
@@ -142,7 +171,7 @@ class FaslanceCreate extends Component {
           } else {
               let profile_grid_data = this.state.profile_grid_data
               var gallery_item = new GalleryImage(profile_grid_data.length + 1, response.base64)
-              profile_grid_data.push(gallery_item)
+              profile_grid_data[0] = gallery_item
               this.setState({profile_grid_data: profile_grid_data})
           }
       });
@@ -169,9 +198,9 @@ class FaslanceCreate extends Component {
               alert(response.customButton);
           } else {
               let gallery_grid_data = this.state.gallery_grid_data
-		var gallery_item = new GalleryImage(gallery_grid_data.length + 1, response.base64)
-		gallery_grid_data.push(gallery_item)
-		this.setState({gallery_grid_data: gallery_grid_data})
+              var gallery_item = new GalleryImage(gallery_grid_data.length + 1, response.base64)
+              gallery_grid_data.push(gallery_item)
+              this.setState({gallery_grid_data: gallery_grid_data})
           }
       });
     }
@@ -229,10 +258,21 @@ class FaslanceCreate extends Component {
                     <Item floatingLabel style={styles.underlineStyle}>
                       <Input placeholder='Please enter your email address' onChangeText={this.changeEmail} />
                     </Item>                  */}
-                    <Label style={styles.loginSubTitleLabel}>Proffesion</Label>
-                    <Item floatingLabel style={styles.underlineStyle}>
-                      <Input placeholder='Model' onChangeText={(value) => this.changeProffesion(value)} disabled={true} />
-                    </Item>                 
+                    <Label style={styles.loginSubTitleLabel}>Niche</Label>
+                    <DropDownPicker 
+                      open={this.state.niche_open}
+                      style={styles.everyoneButton}
+                      value={this.state.niche_value}
+                      items={this.state.niche_data}
+                      setOpen={(value) => this.handleNicheOpen(value)}
+                      setValue={(callback) => this.handleNicheValue(callback)}
+                      searchable={false}
+                      textStyle={styles.everyoneButtonText}
+                      closeAfterSelecting={true}
+                      maxHeight={430}
+                      dropDownContainerStyle={styles.dropdownContainer}
+                      listItemContainerStyle={styles.listitemContainer}
+                    />
                     <TouchableOpacity style={styles.proffesionButton} onPress={() => this.handleClose()}>
                         <Image style={styles.proffesionImage} source={downArrowImage}/>
                     </TouchableOpacity>
@@ -252,7 +292,7 @@ class FaslanceCreate extends Component {
                     <Item floatingLabel style={styles.underlineStyle}>
                       <Input placeholder='.com' onChangeText={(value) => this.changeLink(value)} />
                     </Item>                 
-                    <Label style={styles.loginSubTitleLabel}>Portfolio(Max: 10)</Label>
+                    <Label style={styles.loginSubTitleLabel}>Portfolio</Label>
                     <FlatGrid 
                       itemDimension={80}
                       data={this.state.profile_grid_data}
@@ -260,14 +300,14 @@ class FaslanceCreate extends Component {
                       horizontal={true}
                       renderItem={({item}) => this._renderProfileGridItem(item)}
                     />
-                    <Label style={styles.loginSubTitleLabel}>Add Gallery</Label>
+                    {/* <Label style={styles.loginSubTitleLabel}>Add Gallery</Label>
                     <FlatGrid 
                       itemDimension={80}
                       data={this.state.gallery_grid_data}
                       spacing={10}
                       horizontal={false}
                       renderItem={({item}) => this._renderGalleryGridItem(item)}
-                    />
+                    /> */}
                     <TouchableOpacity style={styles.signupButton} onPress={() => this.handleSignup()}>
                       <Text style={styles.signupButtonTitle}>Sign Up</Text>
                     </TouchableOpacity>

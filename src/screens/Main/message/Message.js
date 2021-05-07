@@ -27,6 +27,8 @@ export default class Message extends Component {
         // {userid:'010', username: 'Elif Penn', time: '04:30 PM', profile_img: require('../../../../assets/image/profile_avatar.png'), last_message: 'The unfortunate, yet truly exciting.'},
       ],
       selected_item_userid: '',
+      selectedDirectTab: true,
+      selectedProjectTab: false,
     }
   }
 
@@ -35,6 +37,18 @@ export default class Message extends Component {
 
   handleBack = () => {
     this.props.navigation.goBack();
+  }
+
+  handleTabDirect = () => {
+    if(!this.state.selectedDirectTab) {
+      this.setState({selectedDirectTab: true, selectedProjectTab: false});
+    }
+  }
+
+  handleTabProject = () => {
+    if(!this.state.selectedProjectTab) {
+      this.setState({selectedDirectTab: false, selectedProjectTab: true});
+    }
   }
 
   handleSearch = () => {
@@ -66,13 +80,33 @@ export default class Message extends Component {
         <Container>
           <View style={styles.content}>
             <View style={styles.headerView}>
-              <TouchableOpacity style={styles.messageBackButton} onPress={this.handleBack}>
+              <TouchableOpacity style={styles.messageBackButton} onPress={() => this.handleBack()}>
                 <Image style={styles.messageBackButtonImage} source={back_button_icon}/>
               </TouchableOpacity>
               <Label style={styles.navTitleLabel}>Message</Label>
-              <TouchableOpacity style={styles.messageSearchButton} onPress={this.handleSearch}>
-                <Image style={styles.messageSearchButtonImage} source={search_button_icon}/>
+              <TouchableOpacity style={styles.messageSearchButton} onPress={() => this.handleSearch()}>
+                {/* <Image style={styles.messageSearchButtonImage} source={search_button_icon}/> */}
               </TouchableOpacity>
+            </View>
+            <View style={styles.tabView}>
+              {this.state.selectedDirectTab ?
+                <TouchableOpacity style={styles.selected_tab_button} onPress={() => this.handleTabDirect()}>
+                  <Label style={styles.selected_tab_label}>Direct Messages</Label>
+                </TouchableOpacity>
+                :
+                <TouchableOpacity style={styles.normal_tab_button} onPress={() => this.handleTabDirect()}>
+                  <Label style={styles.normal_tab_label}>Direct Messages</Label>
+                </TouchableOpacity>
+              }
+              {this.state.selectedProjectTab ?
+                <TouchableOpacity style={styles.selected_tab_button} onPress={() => this.handleTabProject()}>
+                  <Label style={styles.selected_tab_label}>Project Messages</Label>
+                </TouchableOpacity>
+                :
+                <TouchableOpacity style={styles.normal_tab_button} onPress={() => this.handleTabProject()}>
+                  <Label style={styles.normal_tab_label}>Project Messages</Label>
+                </TouchableOpacity>
+              }
             </View>
             <View style={styles.message_content_view}>
               <FlatList

@@ -31,6 +31,7 @@ import {
 import {
   getUserById,
 } from '../../../actions/authentication'
+import Question from '../world/Question';
 
 const mapStateToProps = state => ({ });
 
@@ -98,11 +99,14 @@ class Home extends Component {
       user_data: [],
       selectedGridItem: null,
       post_data: [],
-      nav_title: 'FasNet',
+      nav_title: 'Wardrobe',
       post_user_data: [],
       spinner: false,
       user_profile_data: {},
       profile_photo_data : '',
+      search_text: '',
+      search_visible: false,
+      selected_fas_q: false,
     }
   }
 
@@ -213,6 +217,7 @@ class Home extends Component {
   handleShare = (profileID) => {
 
   }
+  
   handleBack = () => {
 
   }
@@ -262,7 +267,13 @@ class Home extends Component {
     })
   }
 
-  handleNext = () => {
+  handleSearch = () => {
+    this.setState({search_visible: !this.state.search_visible})
+    if(this.state.bottom_hanger_button_selected) {
+    }else if(this.state.bottom_global_button_selected) {
+    }else if(this.state.bottom_path_button_selected) {
+    }
+
   }
 
   handleSideMail = () => {
@@ -295,24 +306,21 @@ class Home extends Component {
 
   handleBottomHanger = () => {
     this.BottomAllDisabled();
-    this.setState({bottom_hanger_button_selected: true, nav_title: 'FasNet'});
+    this.setState({bottom_hanger_button_selected: true, nav_title: 'Wardrobe'});
   }
 
   handleBottomGlobal = () => {
     this.BottomAllDisabled();
-    this.setState({bottom_global_button_selected: true, nav_title: 'Fas-Q'});
+    this.setState({bottom_global_button_selected: true, nav_title: 'The Hub'});
   }
 
   handleBottomPath = () => {
     this.BottomAllDisabled();
-    this.setState({bottom_path_button_selected: true, nav_title: 'Fasfit Friday'});
+    this.setState({bottom_path_button_selected: true, nav_title: 'Faslance'});
   }
 
   handleBottomCompass = () => {
     // this.BottomAllDisabled();
-    if(this.state.bottom_path_button_selected){
-      return
-    }
     this.setState({bottom_compass_button_selected: !this.state.bottom_compass_button_selected});
   }
 
@@ -329,6 +337,7 @@ class Home extends Component {
   }
 
   handleFolderPost = async() => {
+    await storage.setPostStyle('folder')
     if(this.state.bottom_hanger_button_selected) {
       await storage.setPostType('wardrobe_post')
     }else if(this.state.bottom_global_button_selected) {
@@ -344,7 +353,8 @@ class Home extends Component {
     // this.props.navigation.navigate('FolderPost');
   }
 
-  handleShortcutPost = async () => {
+  handleShoutoutPost = async () => {
+    await storage.setPostStyle('shoutout')
     if(this.state.bottom_hanger_button_selected) {
       await storage.setPostType('wardrobe_post')
     }else if(this.state.bottom_global_button_selected) {
@@ -363,7 +373,16 @@ class Home extends Component {
     this.setState({selectedGridItem: gridItem});
   }
 
-  changeSearchText = (value) => {    
+  handleFasQ = () => {
+    if(this.state.selected_fas_q) {
+      this.setState({selected_fas_q: false, nav_title: 'The Hub'})
+    }else{
+      this.setState({selected_fas_q: true, nav_title: 'Questionnaire'})
+    }
+  }
+
+  changeSearchText = (value) => {  
+    this.setState({search_text : value})  
   }
 
   _renderGridItem = (gridItem) => {
@@ -413,7 +432,7 @@ class Home extends Component {
           <TouchableOpacity style={styles.item_top_detail_button} onPress={() => this.handleDetail(item['user_id'])}>
             <Image style={styles.item_top_detail_button_image} source={detail_image}/>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.item_top_share_button} onPress={() => this.handleShortcutPost(item['user_id'])}>
+          <TouchableOpacity style={styles.item_top_share_button} onPress={() => this.handleShare(item['user_id'])}>
             <Image style={styles.item_top_share_button_image} source={share_image}/>
           </TouchableOpacity>
         </View>
@@ -475,12 +494,6 @@ class Home extends Component {
       return (
         <View style={styles.side_menu_hanger_bg}>
           <View style={styles.side_menu_hanger_img_view}>
-            <Label style={styles.menu_Flourish}>F</Label>
-            <Label style={styles.menu_Flourish}>A</Label>
-            <Label style={styles.menu_Flourish}>S</Label>
-            <Label style={styles.menu_Flourish}>N</Label>
-            <Label style={styles.menu_Flourish}>E</Label>
-            <Label style={styles.menu_Flourish}>T</Label>
             {/* <Image style={styles.side_hanger_o1_image} source={side_hanger_o1_icon}/>
             <Image style={styles.side_hanger_o2_image} source={side_hanger_o2_icon}/>
             <Image style={styles.side_hanger_t_image} source={side_hanger_t_icon}/>
@@ -496,8 +509,9 @@ class Home extends Component {
       return (
         <View style={styles.side_menu_global_bg}>
           <View style={styles.side_menu_global_img_view}>
-            <Image style={styles.side_global_fire_image} source={side_ask_icon}/>
-            {/* {hot_sport_string.split('').map((char, i) => <Text key={i} style={styles.side_global_fire_text}>{char}</Text>)} */}
+            <TouchableOpacity style={styles.side_global_fire_button} onPress={() => this.handleFasQ()}>
+              <Image style={styles.side_global_fire_image} source={side_ask_icon}/>
+            </TouchableOpacity>
           </View>
         </View>
       )
@@ -524,13 +538,17 @@ class Home extends Component {
     if(this.state.bottom_hanger_button_selected) {
       return (
         <View style={styles.body_data_content}>
-          {/* <View style={styles.body_search_content}>
-            <Input style={styles.body_search_text} onChangeText={this.changeSearchText} />
-            <TouchableOpacity style={styles.pushpin_button} onPress={this.handleSideMail}>
-              <Image style={styles.pushpin_image} source={pushpin_icon}/>
-            </TouchableOpacity>
-          </View> */}
-          <View style={styles.body_grid_content}>
+          {this.state.search_visible ?
+            <View style={styles.body_search_content}>
+              <Input style={styles.body_search_text} value={this.state.search_text} onChangeText={(value) => this.changeSearchText(value)} />
+              <TouchableOpacity style={styles.pushpin_button} onPress={() => this.handleSearch()}>
+                <Image style={styles.pushpin_image} source={search_button}/>
+              </TouchableOpacity>
+            </View>
+            :
+            null
+          }
+          {/* <View style={styles.body_grid_content}>
             <FlatGrid 
               itemDimension={100}
               data={this.state.user_data}
@@ -539,7 +557,7 @@ class Home extends Component {
               renderItem={({item}) => this._renderGridItem(item)}
             />
           </View>
-          <Label style={styles.divided_line} />
+          <Label style={styles.divided_line} /> */}
           <View style={styles.body_list_content}>
             <FlatList
               data={this.state.post_data}
@@ -560,7 +578,21 @@ class Home extends Component {
     if(this.state.bottom_global_button_selected) {
       return (
         <View style={styles.body_data_content}>
-          <WorldInfo></WorldInfo>
+          {this.state.search_visible ?
+            <View style={styles.body_search_content}>
+              <Input style={styles.body_search_text} value={this.state.search_text} onChangeText={(value) => this.changeSearchText(value)} />
+              <TouchableOpacity style={styles.pushpin_button} onPress={() => this.handleSearch()}>
+                <Image style={styles.pushpin_image} source={search_button}/>
+              </TouchableOpacity>
+            </View>
+            :
+            null
+          }
+          {this.state.selected_fas_q ?
+            <Question {...this.props}></Question>
+            :
+            <WorldInfo {...this.props}></WorldInfo>
+          }
         </View>
       )
     }else{
@@ -572,6 +604,16 @@ class Home extends Component {
     if(this.state.bottom_path_button_selected) {
       return (
         <View style={styles.body_data_content}>
+          {this.state.search_visible ?
+            <View style={styles.body_search_content}>
+              <Input style={styles.body_search_text} value={this.state.search_text} onChangeText={(value) => this.changeSearchText(value)} />
+              <TouchableOpacity style={styles.pushpin_button} onPress={() => this.handleSearch()}>
+                <Image style={styles.pushpin_image} source={search_button}/>
+              </TouchableOpacity>
+            </View>
+            :
+            null
+          }
           <FaslanceInfo {...this.props}></FaslanceInfo>
         </View>
       )
@@ -589,7 +631,7 @@ class Home extends Component {
               <Image style={styles.profileButtonImage} source={this.state.profile_photo_data == '' ? profile_button : {uri: `data:image/jpeg;base64,${this.state.profile_photo_data}`}}/>
             </TouchableOpacity>
             <Label style={styles.homeTitleLabel}>{this.state.nav_title}</Label>
-            <TouchableOpacity style={styles.searchButton} onPress={() => this.handleNext()}>
+            <TouchableOpacity style={styles.searchButton} onPress={() => this.handleSearch()}>
               <Image style={styles.searchButtonImage} source={search_button}/>
             </TouchableOpacity>
           </View>
@@ -643,9 +685,9 @@ class Home extends Component {
                 <Image style={styles.compass_popup_post_image} source={bottom_popup_post_icon}/>
                 <Text style={styles.compass_popup_button_text}>Folder Post</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.compass_popup_button} onPress={() => this.handleShortcutPost()}>
+              <TouchableOpacity style={styles.compass_popup_button} onPress={() => this.handleShoutoutPost()}>
                 <Image style={styles.compass_popup_post_image} source={bottom_popup_post_icon}/>
-                <Text style={styles.compass_popup_button_text}>Shortcut Post</Text>
+                <Text style={styles.compass_popup_button_text}>Shoutout Post</Text>
               </TouchableOpacity>
             </View>
             : null

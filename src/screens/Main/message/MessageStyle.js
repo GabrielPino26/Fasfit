@@ -59,7 +59,7 @@ export const styles = StyleSheet.create({
 
   navTitleLabel: {
     marginTop: 24 * utils.widthRatio,
-    fontSize: 18 * utils.widthRatio,
+    fontSize: 24 * utils.widthRatio,
     color: 'white', 
     fontWeight: 'bold',
     textAlign: 'center',
@@ -91,7 +91,7 @@ export const styles = StyleSheet.create({
   },
 
   item_img_view: {
-    height: '100%',
+    height: 65 * utils.widthRatio,
     width: 65 * utils.widthRatio,
   },
 
@@ -99,6 +99,7 @@ export const styles = StyleSheet.create({
     marginTop: 10 * utils.widthRatio,
     marginLeft: 15 * utils.widthRatio,
     width: 40 * utils.widthRatio,
+    height: 40 * utils.widthRatio,
     overflow: 'hidden',
     resizeMode: 'contain',
     borderRadius: 20 * utils.widthRatio
@@ -130,4 +131,49 @@ export const styles = StyleSheet.create({
     fontSize: 10 * utils.widthRatio,
     color: '#DB143B',
   },
+
+  tabView: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    height: 40 * utils.widthRatio,
+    backgroundColor: 'black',
+  },
+
+  selected_tab_button: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 10 * utils.widthRatio,
+  },
+
+  selected_tab_label: {
+    height: 28 * utils.widthRatio,
+    fontSize: 13 * utils.widthRatio,
+    color: '#DB143B',
+    borderBottomColor: '#DB143B',
+    borderBottomWidth: 1 * utils.widthRatio,
+    textAlign: 'center',
+    alignSelf: 'center',
+  },
+  
+  normal_tab_button: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 10 * utils.widthRatio,
+  },
+
+  normal_tab_label: {
+    height: 28 * utils.widthRatio,
+    fontSize: 13 * utils.widthRatio,
+    color: '#707070',
+    textAlign: 'center',
+    alignSelf: 'center',
+  },
+
+  tab_content_view: {
+    flex: 1,
+    width: '100%',
+  }
 });

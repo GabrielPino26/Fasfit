@@ -7,6 +7,7 @@ import faslance from './faslance';
 import notification from './notification';
 import profile from './profile';
 import folderpost from './folderpost';
+import question from './question';
 
 const rootReducer = combineReducers({
   authentication,
@@ -15,7 +16,8 @@ const rootReducer = combineReducers({
   faslance,
   notification,
   profile,
-  folderpost
+  folderpost,
+  question
 });
 
 

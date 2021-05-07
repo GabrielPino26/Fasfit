@@ -27,9 +27,8 @@ export const styles = StyleSheet.create({
   },
 
   body_search_content: {
-    position: 'absolute',
     width: utils.deviceWidth - 96 * utils.widthRatio,
-    height: 36 * utils.widthRatio,
+    height: 42 * utils.widthRatio,
   },
 
   body_search_text: {
@@ -37,10 +36,11 @@ export const styles = StyleSheet.create({
     height: '100%',
     backgroundColor: '#ECECEC',
     borderRadius: 8 * utils.widthRatio,
-    fontSize: 14 * utils.widthRatio,
+    fontSize: 16 * utils.widthRatio,
   },
 
   body_grid_content: {
+    marginTop: 10 * utils.widthRatio,
     width: '100%',
     height: 130 * utils.widthRatio,
   },
@@ -54,7 +54,7 @@ export const styles = StyleSheet.create({
 
   body_list_content: {
     width: '100%',
-    height: utils.deviceHeight - 303 * utils.widthRatio,
+    height: utils.deviceHeight - 153 * utils.widthRatio,
   },
 
   home_list_view: {
@@ -65,7 +65,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
-    marginTop: 21 * utils.widthRatio,
+    marginBottom: 21 * utils.widthRatio,
     width: 0.74 * utils.deviceWidth,
     height: 1.15 * utils.deviceWidth,
     backgroundColor: '#ECECEC',
@@ -379,13 +379,13 @@ export const styles = StyleSheet.create({
     position: 'absolute',
     alignItems: 'center',
     justifyContent: 'center',
-    top: 7 * utils.widthRatio,
+    top: 11 * utils.widthRatio,
     right: 16 * utils.widthRatio,
   },
 
   pushpin_image: {
-    width: 21 * utils.widthRatio,
-    height: 21 * utils.widthRatio,
+    width: 20 * utils.widthRatio,
+    height: 20 * utils.widthRatio,
     resizeMode: 'contain',
     alignSelf: 'center'
   },
@@ -540,8 +540,14 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
+  side_global_fire_button: {
+    marginTop: 12 * utils.widthRatio,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
   side_global_fire_image: {
-    height: 144 * utils.widthRatio,
+    height: 92 * utils.widthRatio,
     resizeMode: 'contain',
     alignItems: 'center',
     justifyContent: 'center',
@@ -665,7 +671,7 @@ export const styles = StyleSheet.create({
 
   bottom_menu_item_path: {
     width: 24 * utils.widthRatio,
-    height: 24 * utils.widthRatio,
+    height: 23 * utils.widthRatio,
     resizeMode: 'contain',
     alignSelf: 'center'
   },

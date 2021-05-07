@@ -23,9 +23,9 @@ export const styles = StyleSheet.create({
     },
 
     loginLogoImage: {
-        height: 32 * utils.widthRatio,
+        height: 30 * utils.widthRatio,
         resizeMode: 'contain',
-        marginTop: 21 * utils.widthRatio,
+        marginTop: 24 * utils.widthRatio,
         left: 4 * utils.widthRatio,
     },
 
@@ -120,7 +120,7 @@ export const styles = StyleSheet.create({
     profile_grid_item_image: {
         width: 80 * utils.widthRatio,
         height: 80 * utils.widthRatio,
-        resizeMode: 'contain',
+        resizeMode: 'cover',
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 40 * utils.widthRatio
@@ -141,5 +141,34 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
     },
 
+    everyoneButton: {
+        justifyContent: 'center',
+        borderWidth: 0,
+        marginTop: 1 * utils.widthRatio,
+        marginBottom: 4 * utils.widthRatio,
+        width: '90%',
+        height: 45 * utils.widthRatio,
+        borderColor: '#E3E6EF',
+        borderBottomWidth: 1 * utils.widthRatio,
+        left: 20 * utils.widthRatio,
+    },
     
+    everyoneButtonText: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontSize: 20 * utils.widthRatio,
+        alignSelf: 'center'
+      },
+    
+    dropdownContainer: {
+        borderWidth: 0,
+        marginLeft: 20 * utils.widthRatio,
+        width: utils.deviceWidth - 40 * utils.widthRatio,
+        height: 500 * utils.widthRatio
+    },
+
+    listitemContainer: {
+        backgroundColor: 'white',
+    }
+     
 });

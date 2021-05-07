@@ -8,6 +8,7 @@ import { styles } from './FolderPostStyle';
 
 import { connect } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { storage } from '../../../helper/storage';
 
 const mapStateToProps = state => ({ });
 
@@ -20,14 +21,21 @@ class FolderPost extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      nav_title: 'Folder Post'
     }
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+    let postStyle = await storage.getPostStyle()
+    if(postStyle === "folder") {
+      this.setState({nav_title: 'Folder Post'})
+    }else{
+      this.setState({nav_title: 'Shoutout Post'})
+    }
   }
 
   handleBack = () => {
-    this.props.navigation.state.params.updateData();
+    // this.props.navigation.state.params.updateData();
     this.props.navigation.goBack();
   }
 
@@ -45,7 +53,7 @@ class FolderPost extends Component {
         <Container>
           <View style={styles.content}>
             <View style={styles.headerView}>
-              <Label style={styles.navTitleLabel}>Folder Post</Label>
+              <Label style={styles.navTitleLabel}>{this.state.nav_title}</Label>
               <TouchableOpacity style={styles.notificationBackButton} onPress={() => this.handleBack()}>
                 <Image style={styles.notificationBackButtonImage} source={back_button_icon}/>
               </TouchableOpacity>

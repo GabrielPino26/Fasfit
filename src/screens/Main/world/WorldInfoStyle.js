@@ -52,7 +52,7 @@ export const styles = StyleSheet.create({
   },
 
   navTitleLabel: {
-    fontSize: 18 * utils.widthRatio,
+    fontSize: 24 * utils.widthRatio,
     color: 'white', 
     fontWeight: 'bold',
     textAlign: 'center',

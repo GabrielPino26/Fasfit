@@ -195,9 +195,9 @@ class Profile extends Component {
                 <Image style={styles.editButtonImage} source={profile_edit_button}/>
               </TouchableOpacity>
             }
-            <TouchableOpacity style={styles.pinButton} onPress={() => this.handlePin()}>
+            {/* <TouchableOpacity style={styles.pinButton} onPress={() => this.handlePin()}>
               <Image style={styles.editButtonImage} source={profile_pin_button}/>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             <View style={styles.profileContentView}>
               <Image style={styles.profilePhotoImage} source={this.state.profile_photo_data == '' ? profile_photo : {uri: `data:image/jpeg;base64,${this.state.profile_photo_data}`}} />
               <TouchableOpacity style={styles.profileNameView} onPress={() => {}}>

@@ -51,6 +51,7 @@ class ProfileEdit extends Component {
         profile_photo_data : '',
         gallery_image_data: [],
         userInfo : null,
+        bio: ''
       }   
     }
   
@@ -59,7 +60,7 @@ class ProfileEdit extends Component {
       // if(userInfo['picture'] !== undefined) {
       //   this.setState({profile_photo_data: userInfo['picture']})
       // }
-      this.setState({userInfo: userInfo, username: userInfo['username'], email: userInfo['email'], profile_photo_data: userInfo['picture'] !== undefined ? userInfo['picture'] : ''})
+      this.setState({userInfo: userInfo, username: userInfo['username'], email: userInfo['email'], bio: userInfo['bio'], profile_photo_data: userInfo['picture'] !== undefined ? userInfo['picture'] : ''})
     }
     
     handleLogin = () => {
@@ -107,6 +108,7 @@ class ProfileEdit extends Component {
         user_id: userId,
         username: this.state.username,
         email: this.state.email,
+        bio: this.state.bio,
         picture: this.state.profile_photo_data,
       }
       console.log("params: ", params);
@@ -131,6 +133,10 @@ class ProfileEdit extends Component {
 
     changeEmail = (value) => {    
       this.setState({email: value});
+    }
+
+    changeBio = (value) => {    
+      this.setState({bio: value});
     }
 
     changeProffesion = (value) => {
@@ -261,6 +267,10 @@ class ProfileEdit extends Component {
                     <Label style={styles.loginSubTitleLabel}>Email</Label>
                     <Item floatingLabel style={styles.underlineStyle}>
                       <Input placeholder='Please enter your email address' value={this.state.email} onChangeText={(text) => this.changeEmail(text)} />
+                    </Item>                 
+                    <Label style={styles.loginSubTitleLabel}>Bio</Label>
+                    <Item floatingLabel style={styles.underlineStyle}>
+                      <Input placeholder='Please enter your bio' value={this.state.bio} onChangeText={(text) => this.changeBio(text)} />
                     </Item>                 
                     <TouchableOpacity style={styles.signupButton} onPress={() => this.handleSignup()}>
                       <Text style={styles.signupButtonTitle}>Save</Text>

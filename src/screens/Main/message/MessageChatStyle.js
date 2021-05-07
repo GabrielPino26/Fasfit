@@ -107,7 +107,7 @@ export const styles = StyleSheet.create({
   },
   navTitleLabel: {
     marginTop: 24 * utils.widthRatio,
-    fontSize: 18 * utils.widthRatio,
+    fontSize: 24 * utils.widthRatio,
     color: 'white', 
     fontWeight: 'bold',
     textAlign: 'center',
@@ -145,14 +145,14 @@ export const styles = StyleSheet.create({
   },
 
   item_img_view: {
-    height: '100%',
+    height: 65 * utils.widthRatio,
     width: 65 * utils.widthRatio,
   },
 
   item_profile_image: {
-    marginTop: 10 * utils.widthRatio,
     marginLeft: 15 * utils.widthRatio,
     width: 40 * utils.widthRatio,
+    height: 40 * utils.widthRatio,
     overflow: 'hidden',
     resizeMode: 'contain',
     borderRadius: 20 * utils.widthRatio

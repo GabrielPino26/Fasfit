@@ -10,6 +10,8 @@ import { styles } from './MediaPostStyle';
 import { connect } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import CameraRoll from '@react-native-community/cameraroll'
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import { storage } from '../../../helper/storage';
 
 const mapStateToProps = state => ({ });
 
@@ -24,11 +26,18 @@ class MediaPost extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      photos: []
+      photos: [],
+      nav_title: 'Folder Post'
     }
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+    let postStyle = await storage.getPostStyle()
+    if(postStyle === "folder") {
+      this.setState({nav_title: 'Folder Post'})
+    }else{
+      this.setState({nav_title: 'Shoutout Post'})
+    }
     CameraRoll.getPhotos({
       first: 100,
       assetType: 'Photos'
@@ -61,6 +70,26 @@ class MediaPost extends Component {
   }
 
   handleCamera = () => {
+    var options = {
+      maxWidth: 200,
+      maxHeight: 200,
+      mediaType: 'photo',
+      includeBase64: true,
+    };
+    launchCamera(options, (response) => {
+        console.log('Response = ', response);
+
+        if (response.didCancel) {
+            console.log('User cancelled image picker');
+        } else if (response.error) {
+            console.log('ImagePicker Error: ', response.error);
+        } else if (response.customButton) {
+            console.log('User tapped custom button: ', response.customButton);
+            alert(response.customButton);
+        } else {
+          this.props.navigation.navigate('MediaItemPost', {itemImage: response.uri});
+        }
+    });
   }
 
   handleGalleryItem = (gridItem) => {
@@ -83,7 +112,7 @@ class MediaPost extends Component {
         <Container>
           <View style={styles.content}>
             <View style={styles.headerView}>
-              <Label style={styles.navTitleLabel}>Folder Post</Label>
+              <Label style={styles.navTitleLabel}>{this.state.nav_title}</Label>
               <TouchableOpacity style={styles.notificationBackButton} onPress={() => this.handleBack()}>
                 <Image style={styles.notificationBackButtonImage} source={back_button_icon}/>
               </TouchableOpacity>

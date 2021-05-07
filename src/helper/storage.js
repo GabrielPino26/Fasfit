@@ -4,11 +4,13 @@ const USERTYPE = 'usertype'
 const USERINFO = 'userinfo'
 const DEVICETOKEN = 'devicetoken'
 const POSTTYPE = 'posttype'
+const POSTSTYLE = 'poststyle'
 const data = {
     userType: 'personal',
     userInfo: {},
     deviceToken: '',
-    postType: 'wardrobe_post' //world_post, path_post
+    postType: 'wardrobe_post', //world_post, path_post
+    postStyle: 'folder'
 }
 
 export const storage = {
@@ -50,6 +52,16 @@ export const storage = {
     setPostType: async(value)=> {
         data.postType = value
         return AsyncStorage.setItem(POSTTYPE, value)
+    },
+
+    getPostStyle: async () => {
+        data.postStyle = await AsyncStorage.getItem(POSTSTYLE)
+        return data.postStyle
+    },
+
+    setPostStyle: async(value)=> {
+        data.postStyle = value
+        return AsyncStorage.setItem(POSTSTYLE, value)
     },
 
 

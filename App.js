@@ -47,6 +47,8 @@ import MediaPost from './src/screens/Main/home/MediaPost';
 import MediaItemPost from './src/screens/Main/home/MediaItemPost';
 import FolderTextPost from './src/screens/Main/home/FolderTextPost';
 import ProfileEdit from './src/screens/Main/profile/ProfileEdit';
+import Question from './src/screens/Main/world/Question';
+import QuestionItem from './src/screens/Main/world/QuestionItem';
 
 pushNotifications.configure();
 
@@ -81,6 +83,8 @@ const MainNavigator = createStackNavigator(
     MediaItemPost: { screen: MediaItemPost, navigationOptions: { headerShown: false, animationEnabled: false } },
     FolderTextPost: { screen: FolderTextPost, navigationOptions: { headerShown: false, animationEnabled: false } },
     ProfileEdit: { screen: ProfileEdit, navigationOptions: { headerShown: false, animationEnabled: false } },
+    Question: { screen: Question, navigationOptions: { headerShown: false, animationEnabled: false } },
+    QuestionItem: { screen: QuestionItem, navigationOptions: { headerShown: false, animationEnabled: false } },
   } 
 )
 

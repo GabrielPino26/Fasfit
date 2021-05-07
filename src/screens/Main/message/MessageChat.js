@@ -79,31 +79,31 @@ export default class MessageChat extends Component {
         <Container>
           <View style={styles.content}>
             <View style={styles.headerView}>
-              <TouchableOpacity style={styles.messageBackButton} onPress={this.handleBack}>
+              <TouchableOpacity style={styles.messageBackButton} onPress={() => this.handleBack()}>
                 <Image style={styles.messageBackButtonImage} source={back_button_icon}/>
               </TouchableOpacity>
               <View style={styles.nameView}>
                 <Label style={styles.navTitleLabel}>{userItem.username}</Label>
                 <Label style={styles.navStateLabel}>Online</Label>
               </View>
-              <TouchableOpacity style={styles.messageMenuButton} onPress={this.handleRightMenu}>
+              <TouchableOpacity style={styles.messageMenuButton} onPress={() => this.handleRightMenu()}>
                 <Image style={styles.messageMenuButtonImage} source={right_menu_button_icon}/>
               </TouchableOpacity>
             </View>
             <View style={styles.preheaderView}>
-              <TouchableOpacity style={styles.preheaderButton} onPress={this.handleLink}>
+              <TouchableOpacity style={styles.preheaderButton} onPress={() => this.handleLink()}>
                   <Image style={styles.preheaderButtonImage} source={link_button_icon}/>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.preheaderButton} onPress={this.handlePicture}>
+                <TouchableOpacity style={styles.preheaderButton} onPress={() => this.handlePicture()}>
                   <Image style={styles.preheaderButtonImage} source={picture_button_icon}/>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.preheaderButton} onPress={this.handleCalendar}>
+                <TouchableOpacity style={styles.preheaderButton} onPress={() => this.handleCalendar()}>
                   <Image style={styles.preheaderButtonImage} source={calendar_button_icon}/>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.preheaderButton} onPress={this.handleClipboard}>
+                <TouchableOpacity style={styles.preheaderButton} onPress={() => this.handleClipboard()}>
                   <Image style={styles.preheaderButtonImage} source={clipboard_button_icon}/>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.preheaderButton} onPress={this.handleDollar}>
+                <TouchableOpacity style={styles.preheaderButton} onPress={() => this.handleDollar()}>
                   <Image style={styles.preheaderButtonImage} source={dollar_button_icon}/>
                 </TouchableOpacity>
              </View>
