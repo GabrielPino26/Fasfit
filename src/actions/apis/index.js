@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const baseUrl = 'http://192.168.5.81:3000';
-// const baseUrl = 'http://3.137.213.68:3000';
+// const baseUrl = 'http://192.168.5.81:3000';
+const baseUrl = 'http://3.137.213.68:3000';
 const client = axios.create({
   baseURL: baseUrl,
 });
